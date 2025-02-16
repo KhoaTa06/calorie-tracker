@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<foods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://platform.fatsecret.com/api/1.0/"
+       xsi:schemaLocation="http://platform.fatsecret.com/api/1.0/ http://platform.fatsecret.com/api/1.0/fatsecret.xsd">
+  <max_results>1</max_results>
+  <total_results>220</total_results>
+  <page_number>0</page_number>
+  <food>
+    <food_id>41963</food_id>
+    <food_name>Cheeseburger</food_name>
+    <brand_name>McDonald's</brand_name>
+    <food_type>Brand</food_type>
+    <food_url>https://www.fatsecret.com/calories-nutrition/mcdonalds/cheeseburger</food_url>
+    <food_description>Per 1 serving - Calories: 300kcal | Fat: 13.00g | Carbs: 32.00g | Protein: 15.00g
+    </food_description>
+  </food>
+</foods>

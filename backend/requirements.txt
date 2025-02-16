@@ -1,0 +1,6 @@
+numpy
+pandas
+fastapi
+psycopg2-binary
+requests
+lxml
