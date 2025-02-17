@@ -1,10 +1,10 @@
 import numpy as np
 import pandas as pd
-import psycopg2
 import requests
 import xml.etree.ElementTree as ET
 import xml.dom.minidom
 import pprint
+import db_class
 
 
 if __name__ == "__main__":
@@ -21,24 +21,28 @@ if __name__ == "__main__":
         "Authorization": f"Bearer {access_token}"
     }
 
-    try:
-        response = requests.get(api_url, headers=headers, params=params)
-        response.raise_for_status()
-        print(response.content)
-        # Parse XML response
-        root = ET.fromstring(response.content)
+    database = db_class.DatabaseInterface()
+    database.create_table()
 
-        # Extract food data
-        foods = []
-        for food in root.findall("/food"):
-            food_id = food.find("food_id").text
-            food_name = food.find("food_name").text
-            # foods.append((food_id, food_name))
-            print(f"Food ID: {food_id}, Food Name: {food_name}")
 
-    except requests.exceptions.RequestException as e:
-        print("API Request Error:", e)
+    # try:
+    #     response = requests.get(api_url, headers=headers, params=params)
+    #     response.raise_for_status()
+    #     print(response.content)
+    #     # Parse XML response
+    #     root = ET.fromstring(response.content)
 
-    except ET.ParseError as e:
-        print("XML Parse Error:", e)
-        print("Compiled")
+    #     # Extract food data
+    #     foods = []
+    #     for food in root.findall("/food"):
+    #         food_id = food.find("food_id").text
+    #         food_name = food.find("food_name").text
+    #         # foods.append((food_id, food_name))
+    #         print(f"Food ID: {food_id}, Food Name: {food_name}")
+
+    # except requests.exceptions.RequestException as e:
+    #     print("API Request Error:", e)
+
+    # except ET.ParseError as e:
+    #     print("XML Parse Error:", e)
+    #     print("Compiled")

@@ -59,3 +59,12 @@ class Food:
 
     def parse_xml(self, xml):
         pass
+
+
+class FoodLog:
+    def __init__(self):
+        pass
+
+
+
+

@@ -3,8 +3,7 @@ from config import DB_CONFIG
 
 class DatabaseInterface:
     def __init__(self):
-        self.conn = psycopg2.connect(**DB_CONFIG)
-        self.conn.close()
+        self.conn = None
 
     def create_table(self):
         queries = ["""
@@ -37,8 +36,7 @@ class DatabaseInterface:
             iron FLOAT,
             vitamin_d FLOAT,
             metric_serving_amount FLOAT NOT NULL,
-            metric_serving_unit VARCHAR(50) NOT NULL,
-        );
+            metric_serving_unit VARCHAR(50) NOT NULL);
         """,
         """
         CREATE TABLE IF NOT EXISTS food_logs (
@@ -46,8 +44,7 @@ class DatabaseInterface:
             user_id INTEGER REFERENCES users(user_id) ON DELETE CASCADE,
             food_id INTEGER REFERENCES food(food_id) ON DELETE CASCADE,
             quantity FLOAT NOT NULL,
-            log_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-        );
+            log_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP);
         """,
         """
         CREATE TABLE IF NOT EXISTS daily_summary (
@@ -67,8 +64,7 @@ class DatabaseInterface:
             calcium FLOAT DEFAULT 0,
             iron FLOAT DEFAULT 0,
             vitamin_d FLOAT DEFAULT 0,
-            UNIQUE(user_id, date)
-        );
+            UNIQUE(user_id, date));
         """,
         """
         CREATE TABLE IF NOT EXISTS goals (
@@ -77,21 +73,25 @@ class DatabaseInterface:
             daily_calories FLOAT NOT NULL,
             daily_protein FLOAT NOT NULL,
             daily_carbs FLOAT NOT NULL,
-            daily_fat FLOAT NOT NULL,
-        );
+            daily_fat FLOAT NOT NULL);
         """,
-                """
+        """
         CREATE TABLE IF NOT EXISTS workout_log (
             workout_id SERIAL PRIMARY KEY,
             user_id INTEGER REFERENCES users(user_id) ON DELETE CASCADE,
             type VARCHAR(255) NOT NULL,
             repetition INTEGER NOT NULL,
             weight INTEGER NOT NULL,
-            duration FLOAT NOT NULL,
-        );
+            duration FLOAT NOT NULL);
         """
         ]
-                
+        try:
+            self.conn = psycopg2.connect(**DB_CONFIG)
+            print("Database connected")
+        except:
+            print("Failed to open database")
+            return
+        
         cur = self.conn.cursor()
 
         for query in queries:
@@ -99,6 +99,9 @@ class DatabaseInterface:
 
         self.conn.commit()
         cur.close()
+        self.conn.close()
+
+    
 
 
 
