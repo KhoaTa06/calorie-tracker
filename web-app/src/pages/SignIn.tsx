@@ -14,9 +14,10 @@ function SignIn() {
     <>
       <div className="container">
         <div className="col-6 mx-auto">
-          <div>
-            <SignInForm onSubmit={handleLogin} />
+          <div className="text-center">
+            <h1>WELCOME BACK</h1>
           </div>
+          <SignInForm onSubmit={handleLogin} />
         </div>
       </div>
     </>
