@@ -1,26 +1,28 @@
-// import React from "react";
-import { useState } from "react";
+import React from "react";
 
 interface Props {
-  onSubmit: (email: string, password: string) => void;
+  onSubmit: (e: React.FormEvent) => void;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-function SignInForm({ onSubmit }: Props) {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+function SignInForm({ onSubmit, onChange }: Props) {
+  // const [email, setEmail] = useState("");
+  // const [password, setPassword] = useState("");
 
   return (
     <>
-      <form>
+      <form onSubmit={onSubmit}>
         <div className="mb-3">
           <label htmlFor="exampleInputEmail1" className="form-label">
             Email address
           </label>
           <input
             type="email"
+            name="email"
             className="form-control"
             id="exampleInputEmail1"
             aria-describedby="emailHelp"
+            onChange={onChange}
           />
         </div>
         <div className="mb-3">
@@ -29,8 +31,11 @@ function SignInForm({ onSubmit }: Props) {
           </label>
           <input
             type="password"
+            name="password"
             className="form-control"
             id="exampleInputPassword1"
+            placeholder="Password"
+            onChange={onChange}
           />
         </div>
         <div className="mb-3 form-check">

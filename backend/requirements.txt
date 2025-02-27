@@ -6,3 +6,9 @@ requests
 lxml
 uvicorn
 pydantic
+bcrypt
+pyjwt
+python-dotenv
+sqlalchemy
+passlib
+python-multipart

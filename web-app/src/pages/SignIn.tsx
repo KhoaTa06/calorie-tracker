@@ -1,13 +1,28 @@
-// import React from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState, useContext } from "react";
+// import { useNavigate } from "react-router-dom";
 import SignInForm from "../components/Auth/SignInForm";
+import { AuthContext } from "../contexts/AuthContext";
 
 function SignIn() {
-  const navigate = useNavigate();
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+  });
 
-  const handleLogin = (email: string, password: string) => {
-    console.log("Logging in ", email, password);
-    navigate("/dashboard");
+  const authContext = useContext(AuthContext);
+  if (!authContext) {
+    throw new Error("AuthContext not initialized");
+  }
+  const { login } = authContext;
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleLogin = (e: React.FormEvent) => {
+    console.log("Logging in ", formData.email, formData.password);
+    e.preventDefault();
+    login(formData.email, formData.password);
   };
 
   return (
@@ -17,7 +32,7 @@ function SignIn() {
           <div className="text-center">
             <h1>WELCOME BACK</h1>
           </div>
-          <SignInForm onSubmit={handleLogin} />
+          <SignInForm onSubmit={handleLogin} onChange={handleChange} />
         </div>
       </div>
     </>

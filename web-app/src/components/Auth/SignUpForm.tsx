@@ -1,16 +1,53 @@
-import { useState } from "react";
+import React from "react";
 
 interface Props {
-  onSubmit: (email: string, password: string) => void;
+  onSubmit: (e: React.FormEvent) => void;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-function SignUpForm({ onSubmit }: Props) {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+function SignUpForm({ onSubmit, onChange }: Props) {
+  // const [email, setEmail] = useState("");
+  // const [password, setPassword] = useState("");
 
   return (
     <>
-      <form>
+      <form onSubmit={onSubmit}>
+        <div className="mb-3">
+          <label htmlFor="exampleinputFirstName" className="form-label">
+            First name
+          </label>
+          <input
+            type="text"
+            className="form-control"
+            id="exampleinputFirstName"
+            placeholder="First name"
+            onChange={onChange}
+          />
+        </div>
+        <div className="mb-3">
+          <label htmlFor="exampleinputLastName" className="form-label">
+            Last name
+          </label>
+          <input
+            type="text"
+            className="form-control"
+            id="exampleinputLastName"
+            placeholder="Last name"
+            onChange={onChange}
+          />
+        </div>
+        <div className="mb-3">
+          <label htmlFor="exampleinputDob" className="form-label">
+            Date of Birth(MM/DD/YYYY)
+          </label>
+          <input
+            type="text"
+            className="form-control"
+            id="exampleinputDob"
+            placeholder="01/01/2000"
+            onChange={onChange}
+          />
+        </div>
         <div className="mb-3">
           <label htmlFor="exampleInputEmail1" className="form-label">
             Email address
@@ -20,6 +57,7 @@ function SignUpForm({ onSubmit }: Props) {
             className="form-control"
             id="exampleInputEmail1"
             aria-describedby="emailHelp"
+            onChange={onChange}
           />
         </div>
         <div className="mb-3">
@@ -30,6 +68,7 @@ function SignUpForm({ onSubmit }: Props) {
             type="password"
             className="form-control"
             id="exampleInputPassword1"
+            onChange={onChange}
           />
         </div>
         <div className="mb-3">
@@ -40,6 +79,7 @@ function SignUpForm({ onSubmit }: Props) {
             type="password"
             className="form-control"
             id="exampleInputPassword1"
+            onChange={onChange}
           />
         </div>
         <div className="mb-3 form-check">

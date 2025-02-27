@@ -4,7 +4,6 @@ import requests
 import xml.etree.ElementTree as ET
 import xml.dom.minidom
 import pprint
-import db_class
 
 
 if __name__ == "__main__":
@@ -20,10 +19,6 @@ if __name__ == "__main__":
     headers = {
         "Authorization": f"Bearer {access_token}"
     }
-
-    database = db_class.DatabaseInterface()
-    database.create_table()
-
 
     # try:
     #     response = requests.get(api_url, headers=headers, params=params)
