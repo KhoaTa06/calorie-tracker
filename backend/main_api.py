@@ -2,8 +2,8 @@ import uvicorn
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-import backend.auth.auth_router as auth_router
-import backend.auth.user_router as user_router
+import auth.auth_router as auth_router
+import auth.user_router as user_router
 
 app = FastAPI(debug=True)
 
