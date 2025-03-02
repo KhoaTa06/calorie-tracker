@@ -1,6 +1,6 @@
 import React, { createContext, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { loginUser, fetchUserProfile, registerUser } from "../api";
+import { loginUser, fetchUserProfile, registerUser } from "../api/api.tsx";
 
 interface AuthContextType {
   token: string | null;

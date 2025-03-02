@@ -23,14 +23,14 @@ class FoodLog(Base):
     quantity = Column(Integer, nullable=False)
     date = Column(String(20), nullable=False)
 
-class WorkOut(Base):
-    __tablename__ = 'work_out'
+class Exercise(Base):
+    __tablename__ = 'exercise'
 
     workout_id = Column(Integer, primary_key=True, index=True)
     user_id = Column(Integer, ForeignKey('users.user_id'))
-    exercise = Column(String)
-    repetition = Column(int)
-    weight = Column(int)
+    exercise_name = Column(String)
+    repetition = Column(Integer)
+    weight = Column(Integer)
     duration = Column(String)
 
 class Food(Base):
@@ -61,3 +61,25 @@ class Food(Base):
     vitamin_d = Column(Integer, nullable=False)
     metric_serving_amount = Column(Integer, nullable=False)
     metric_serving_unit = Column(String(10), nullable=False)
+
+class DailySummary(Base):
+    __tablename__ = 'daily_summary'
+
+    summary_id = Column(Integer, primary_key=True, index=True)
+    user_id = Column(Integer, ForeignKey('users.user_id'))
+    date = Column(String(20), nullable=False)
+    total_calories = Column(Integer, nullable=False)
+    total_protein = Column(Integer, nullable=False)
+    total_carbohydrates = Column(Integer, nullable=False)
+    total_fat = Column(Integer, nullable=False)
+    total_fiber = Column(Integer, nullable=False)
+    total_sugar = Column(Integer, nullable=False)
+    total_vitamin_a = Column(Integer, nullable=False)
+    total_vitamin_c = Column(Integer, nullable=False)
+    total_calcium = Column(Integer, nullable=False)
+    total_iron = Column(Integer, nullable=False)
+    total_potassium = Column(Integer, nullable=False)
+    total_sodium = Column(Integer, nullable=False)
+    total_cholesterol = Column(Integer, nullable=False)
+    
+    total_distances = Column(Integer, nullable=False)

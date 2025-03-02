@@ -1,9 +1,10 @@
+import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { AuthProvider } from "./contexts/AuthContext";
-import SignIn from "./pages/SignIn";
-import SignUp from "./pages/SignUp";
-import Dashboard from "./pages/Dashboard";
-import UserProfile from "./pages/UserFrofile";
+import { AuthProvider } from "../../shared/contexts/AuthContext";
+import SignIn from "../../shared/pages/SignIn";
+import SignUp from "../../shared/pages/SignUp";
+import Dashboard from "../../shared/pages/Dashboard";
+import UserProfile from "../../shared/pages/UserFrofile";
 
 function App() {
   return (
@@ -13,7 +14,7 @@ function App() {
           <Route path="/" element={<SignIn />}></Route>
           <Route path="/signup" element={<SignUp />}></Route>
           <Route path="/dashboard" element={<Dashboard />}></Route>
-          <Route path="//profile" element={<UserProfile />}></Route>
+          <Route path="/profile" element={<UserProfile />}></Route>
         </Routes>
       </AuthProvider>
     </Router>
