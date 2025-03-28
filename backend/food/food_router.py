@@ -1,5 +1,4 @@
 from fastapi import APIRouter, Depends, HTTPException, status
-from typing import Annotated
 
 from backend.auth.auth_handler import get_current_active_user
 
@@ -16,38 +15,93 @@ async def get_foods(db: Session = Depends(get_session),
     return foods
     
 @router.get('/food/{food_id}', response_model=Food)
-async def get_food(food_id: int):
-    db: Session = Depends(get_session)
+async def get_food(food_id: int,
+                   db: Session = Depends(get_session),
+                   current_user: User = Depends(get_current_active_user)):
     food = db.get(Food, food_id)
     return food
 
 @router.post('/food')
-async def create_food():
-    pass
+async def create_food(food: Food,
+                      db: Session = Depends(get_session),
+                      current_user: User = Depends(get_current_active_user)):
+    db_food = Food.model_validate(food)
+    db.add(db_food)
+    db.commit()
+    db.refresh(db_food)
+    return db_food
+    
 
 @router.put('/food/{food_id}')
-async def update_food(food_id: int):
-    pass
+async def update_food(food: Food,
+                      food_id: int,
+                      db: Session = Depends(get_session),
+                      current_user: User = Depends(get_current_active_user)):
+    food = db.get(Food, food_id)
+    if not food:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Food not found")
+    for field, value in food.model_dump().items():
+        setattr(food, field, value)
+    db.commit()
+    db.refresh(food)
+    return food
 
 
 # food log class request
 @router.get('/log/foods')
-async def get_food_logs():
-    pass
+async def get_food_logs(db: Session = Depends(get_session),
+                        current_user: User = Depends(get_current_active_user)):
+    food_logs = db.exec(select(FoodLog).where(FoodLog.user_id == current_user.id)).all()
+    if not food_logs:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="No food logs found")
+    if food_logs.user_id != current_user.id:
+        raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Not authorized to access these food logs")
+    return food_logs
 
 @router.get('/log/food/{food_id}')
-async def get_food_log(food_id: int):
-    pass
+async def get_food_log(food_id: int,
+                       db: Session = Depends(get_session),
+                       current_user: User = Depends(get_current_active_user)):
+    food_log = db.get(FoodLog, food_id)
+    if not food_log:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Food log not found")
+    if food_log.user_id != current_user.id:
+        raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Not authorized to access this food log")
+    return food_log
+    
 
 @router.put('/log/food/{food_id}')
-async def update_food_log(food_id: int):
-    pass
+async def update_food_log(food: FoodLog,
+                          food_id: int,
+                          db: Session = Depends(get_session),
+                          current_user: User = Depends(get_current_active_user)):
+    food_log = db.get(FoodLog, food_id)
+    if not food_log:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Food log not found")
+    for field, value in food.model_dump().items():
+        setattr(food_log, field, value)
+    db.commit()
+    db.refresh(food_log)
+    return food_log
 
-@router.post('log/food/{food_id}')
-async def log_food(food_id: int):
-    pass
+@router.post('log/food')
+async def log_food(food: FoodLog,
+                   db: Session = Depends(get_session),
+                   current_user: User = Depends(get_current_active_user)):
+    db_food_log = FoodLog.model_validate(food, update={"user_id": current_user.id})
+    db.add(db_food_log)
+    db.commit()
+    db.refresh(db_food_log)
+    return db_food_log
 
 @router.delete('/log/food/{food_id}')
-async def delete_food_log(food_id: int):
-    pass
+async def delete_food_log(food_id: int,
+                          db: Session = Depends(get_session),
+                          current_user: User = Depends(get_current_active_user)):
+    food_log = db.get(FoodLog, food_id)
+    if not food_log:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Food log not found")
+    db.delete(food_log)
+    db.commit()
+    return food_log
 
