@@ -7,6 +7,7 @@ class ExerciseCreate(BaseModel):
     duration: str
     calories: int
 
+
 class ExerciseResponse(BaseModel):
     name: str
     repetition: int

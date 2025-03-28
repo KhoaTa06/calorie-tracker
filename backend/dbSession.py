@@ -1,6 +1,6 @@
 import psycopg2
 from config import DB_CONFIG
-from sqlalchemy import create_engine, MetaData, ForeignKey, Column, String, Integer, CHAR
+from sqlalchemy import create_engine, MetaData
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
 from dotenv import load_dotenv

@@ -3,7 +3,9 @@ from typing import Annotated
 
 from auth.auth_handler import get_current_active_user
 from auth.auth_schemas import UserResponse
-from dbModels import User
+# from dbModels import User
+from sqlModels import User
+
 
 router = APIRouter()
 
