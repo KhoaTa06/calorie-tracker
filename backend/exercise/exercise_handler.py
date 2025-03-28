@@ -3,12 +3,9 @@ from sqlalchemy.orm import Session
 from dbModels import Exercise
 
 from dbSession import get_db
-from exercise.exercise_schemas import Exercise
+# from exercise.exercise_schemas import Exercise
 
 def get_day_exercise(db: Session, exercise_name: str):
-    pass
-
-def create_exercise(db: Session, exercise_name: str):
     pass
 
 def update_exercise(db: Session, exercise_id: int, exercise_name: str):

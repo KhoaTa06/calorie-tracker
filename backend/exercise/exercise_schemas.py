@@ -1,13 +1,16 @@
 from pydantic import BaseModel
 
 class ExerciseCreate(BaseModel):
-    type: str
+    name: str
     repetition: int
     weight: int
     duration: str
+    calories: int
+
 
 class ExerciseResponse(BaseModel):
-    type: str
+    name: str
     repetition: int
     weight: int
     duration: str
+    calories: int

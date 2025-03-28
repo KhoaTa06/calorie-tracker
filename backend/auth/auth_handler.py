@@ -5,11 +5,10 @@ from jwt.exceptions import InvalidTokenError
 from passlib.context import CryptContext
 from datetime import datetime, timedelta, timezone
 
-from sqlalchemy.orm import Session
-
-from dbSession import get_db
 from auth.auth_schemas import TokenData
-from dbModels import User
+
+from sqlModels import User, get_session
+from sqlmodel import Session, select
 
 from dotenv import load_dotenv
 import os
@@ -32,14 +31,14 @@ def get_password_hash(password):
     return pwd_context.hash(password)
 
 def get_user(db: Session, email: str):
-    db_user = db.query(User).filter_by(email = email).first()
+    db_user = db.exec(select(User).where(User.email == email)).first()
     return db_user
 
 def authenticate_user(db: Session, email: str, password: str):
     user = get_user(db, email)
     if not user:
         return False
-    if not verify_password(password, user.pw_hash):
+    if not verify_password(password, user.hashed_password):
         return False
     return user
 
@@ -53,7 +52,7 @@ def create_access_token(data: dict, expires_delta: timedelta | None = None):
     encoded_jwt = jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
     return encoded_jwt
 
-async def get_current_user(token: str = Depends(oauth2_scheme), db: Session = Depends(get_db)):
+async def get_current_user(token: str = Depends(oauth2_scheme), db: Session = Depends(get_session)):
     credentials_exception = HTTPException(
         status_code=status.HTTP_401_UNAUTHORIZED,
         detail="Could not validate credentials",
@@ -69,7 +68,7 @@ async def get_current_user(token: str = Depends(oauth2_scheme), db: Session = De
     except InvalidTokenError:
         raise credentials_exception
     
-    user = db.query(User).filter(User.email == token_data.email).first()
+    user = db.exec(select(User).where(User.email == email)).first()
     if user is None:
         raise credentials_exception
     return user

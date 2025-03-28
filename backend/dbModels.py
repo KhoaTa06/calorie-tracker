@@ -1,5 +1,6 @@
-from sqlalchemy import Column, Integer, String, Boolean, CHAR, ForeignKey
+from sqlalchemy import Column, Integer, String, Boolean, DateTime, ForeignKey
 from sqlalchemy.ext.declarative import declarative_base
+from datetime import datetime
 
 Base = declarative_base()
 
@@ -21,7 +22,7 @@ class FoodLog(Base):
     user_id = Column(Integer, ForeignKey('users.user_id'))
     food_id = Column(Integer, nullable=False)
     quantity = Column(Integer, nullable=False)
-    date = Column(String(20), nullable=False)
+    date = Column(DateTime(timezone=True), default=datetime.now())
 
 class Exercise(Base):
     __tablename__ = 'exercise'
@@ -32,6 +33,8 @@ class Exercise(Base):
     repetition = Column(Integer)
     weight = Column(Integer)
     duration = Column(String)
+    calories = Column(Integer)
+    date = Column(DateTime(timezone=True), default=datetime.now())
 
 class Food(Base):
     __tablename__ = 'food'
@@ -67,7 +70,7 @@ class DailySummary(Base):
 
     summary_id = Column(Integer, primary_key=True, index=True)
     user_id = Column(Integer, ForeignKey('users.user_id'))
-    date = Column(String(20), nullable=False)
+    date = Column(DateTime(timezone=True), default=datetime.now().date())
     total_calories = Column(Integer, nullable=False)
     total_protein = Column(Integer, nullable=False)
     total_carbohydrates = Column(Integer, nullable=False)
