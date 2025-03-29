@@ -1,2 +1,4 @@
-export const sayHello = (name) => `Hello, ${name}!`;
-export const getUser = (id) => ({ id, name: `User${id}` });
+export * from './api/auth';
+// export * from './api/food';
+// export * from './api/exercise';
+export * from './utils';

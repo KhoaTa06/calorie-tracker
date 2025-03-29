@@ -1,8 +1,4 @@
-export const sayHello = (name: string): string => `Hello, ${name}!`;
-
-export interface User {
-  id: number;
-  name: string;
-}
-
-export const getUser = (id: number): User => ({ id, name: `User${id}` });
+export * from './api/auth';
+export * from './api/food';
+export * from './api/exercise';
+export * from './utils';

@@ -1,7 +1,7 @@
 import React, { useState, useContext } from "react";
 // import { useNavigate } from "react-router-dom";
 import SignInForm from "../components/Auth/SignInForm";
-import { AuthContext } from "../../../shared/contexts/AuthContext";
+import { AuthContext } from "../../contexts/AuthContext";
 
 function SignIn() {
   const [formData, setFormData] = useState({
