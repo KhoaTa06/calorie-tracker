@@ -1,12 +1,12 @@
 import React, { createContext, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { loginUser, fetchUserProfile, registerUser } from "@frontend/shared/src/api/api.tsx";
+import { login, fetchUserProfile, register, LoginResponse } from "@frontend/shared";
 
 interface AuthContextType {
   token: string | null;
   user: any | null;
-  login: (email: string, password: string) => void;
-  register: (
+  loginUser: (email: string, password: string) => void;
+  registerUser: (
     first_name: string,
     last_name: string,
     dob: string,
@@ -33,8 +33,8 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     }
   }, [token]);
 
-  const login = async (username: string, password: string) => {
-    const response = await loginUser({ username, password });
+  const loginUser = async (username: string, password: string) => {
+    const response: LoginResponse = await login(username, password);
     if (response?.access_token) {
       setToken(response.access_token);
       localStorage.setItem("token", response.access_token);
@@ -44,14 +44,15 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     }
   };
 
-  const register = async (
+  const registerUser = async (
     first_name: string,
     last_name: string,
     dob: string,
     email: string,
-    password: string
+    password: string,
+    admin: boolean = false
   ) => {
-    await registerUser({ first_name, last_name, dob, email, password });
+    await register(first_name, last_name, dob, email, password, admin);
     navigate("/login");
   };
 
@@ -63,7 +64,7 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ token, user, login, register, logout }}>
+    <AuthContext.Provider value={{ token, user, loginUser, registerUser, logout }}>
       {children}
     </AuthContext.Provider>
   );

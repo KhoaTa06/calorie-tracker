@@ -20,7 +20,14 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
-    "noUncheckedSideEffectImports": true
+    "noUncheckedSideEffectImports": true,
+    "baseUrl": ".",
+    "paths": {"@/*": ["./src/*"],
+               "@frontend/shared": ["../shared/src/index.ts"],
+               "react": ["../node_modules/react/index.js"],
+               "react-dom": ["../node_modules/react-dom/index.ts"] // This is to ensure that the correct version of React is used
+              },
   },
-  "include": ["src"]
+  "include": ["./src/**/*"],
+  "exclude": ["node_modules", "test.ts", "**/*.spec.ts"]
 }

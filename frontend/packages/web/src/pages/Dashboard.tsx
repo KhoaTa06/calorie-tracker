@@ -1,7 +1,17 @@
-import React from "react";
+// import React from "react";
 
 function Dashboard() {
-  return <div>Dashboard</div>;
+  return <div>
+    <div>Summary</div>
+    <div>Calories</div>
+    <div>Proteins</div>
+    <div>Carbs</div>
+    <div>Fats</div>
+    <div>Steps</div>
+    <div>Distance</div>
+
+
+  </div>;
 }
 
 export default Dashboard;

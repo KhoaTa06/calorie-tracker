@@ -1,4 +1,4 @@
-import { MouseEvent, useState } from "react";
+import { useState } from "react";
 
 interface Props {
   items: string[];
@@ -20,19 +20,19 @@ function ListGroup({ items, heading, onSelectItem }: Props) {
 
   // items = [];
 
-  let message = items.length == 0 ? <p>No item exist</p> : null;
+  // let message = items.length == 0 ? <p>No item exist</p> : null;
 
   const getMessage = () => {
     return items.length == 0 && <p>No item exist</p>;
   };
 
-  const getEvent = (event: MouseEvent) => {
-    console.log(event);
-  };
+  // const getEvent = (event: MouseEvent) => {
+  //   console.log(event);
+  // };
 
-  const handleClick = (index: number, item: string) => {
-    console.log(index, item);
-  };
+  // const handleClick = (index: number, item: string) => {
+  //   console.log(index, item);
+  // };
 
   return (
     <>

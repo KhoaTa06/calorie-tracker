@@ -18,7 +18,7 @@ function Singup() {
   if (!authContext) {
     throw new Error("AuthContext not initialized");
   }
-  const { register } = authContext;
+  const { registerUser } = authContext;
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -27,13 +27,14 @@ function Singup() {
   const handleSignup = (e: React.FormEvent) => {
     // console.log("Signing up ", email, password);
     e.preventDefault();
-    register(
+    registerUser(
       formData.first_name,
       formData.last_name,
       formData.email,
       formData.password,
       formData.dob
     );
+    navigate("/"); // Redirect to SignIn page after successful registration
   };
 
   return (

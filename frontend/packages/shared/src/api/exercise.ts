@@ -1,4 +1,4 @@
-import apiClient from 'client';
+import apiClient from "./client";
 
 interface Exercise {
     user_id: number;

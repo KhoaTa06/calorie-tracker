@@ -13,7 +13,7 @@ function SignIn() {
   if (!authContext) {
     throw new Error("AuthContext not initialized");
   }
-  const { login } = authContext;
+  const { loginUser } = authContext;
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -22,7 +22,7 @@ function SignIn() {
   const handleLogin = (e: React.FormEvent) => {
     console.log("Logging in ", formData.email, formData.password);
     e.preventDefault();
-    login(formData.email, formData.password);
+    loginUser(formData.email, formData.password);
   };
 
   return (
