@@ -27,12 +27,14 @@ function SignIn() {
 
   return (
     <>
-      <div className="container">
-        <div className="col-6 mx-auto">
-          <div className="text-center">
-            <h1>WELCOME BACK</h1>
+      <div className="d-flex align-items-center vh-100">
+        <div className="container mt-5" style={{ width: "100%", maxWidth: "500px" }}>
+          <div className="card p-4">
+            <div className="text-center">
+              <h1>WELCOME BACK</h1>
+            </div>
+            <SignInForm onSubmit={handleLogin} onChange={handleChange} />
           </div>
-          <SignInForm onSubmit={handleLogin} onChange={handleChange} />
         </div>
       </div>
     </>

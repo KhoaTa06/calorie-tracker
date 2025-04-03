@@ -1,8 +1,9 @@
 import apiClient from "./client";
 
 interface Exercise {
+    id: number;
     user_id: number;
-    exercise_name: string;
+    name: string;
     repetitions: number;
     weight: number;
     duration: string;
@@ -19,9 +20,10 @@ export const createExercise = async (exercise: Exercise): Promise<Exercise> => {
     }
 }
 
-export const getExercises = async (user_id: number): Promise<Exercise[]> => {
+export const getExercises = async (): Promise<Exercise[]> => {
     try {
-        const response = await apiClient.get<Exercise[]>(`/exercise/${user_id}`);
+        const response = await apiClient.get<Exercise[]>(`/exercises`);
+        console.log("Fetched exercises:", response.data);
         return response.data;
     } catch (error) {
         throw new Error('Error fetching exercise entries');

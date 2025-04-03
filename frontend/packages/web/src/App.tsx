@@ -5,6 +5,7 @@ import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
 import Dashboard from "./pages/Dashboard";
 import UserProfile from "./pages/UserFrofile";
+import Excercise from "./pages/Exercise";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
           <Route path="/signup" element={<SignUp />}></Route>
           <Route path="/dashboard" element={<Dashboard />}></Route>
           <Route path="/profile" element={<UserProfile />}></Route>
+          <Route path="/exercise" element={<Excercise />}></Route>
         </Routes>
       </AuthProvider>
     </Router>

@@ -54,6 +54,7 @@ function SignUpForm({ onSubmit, onChange }: Props) {
           </label>
           <input
             type="email"
+            name="email"
             className="form-control"
             id="exampleInputEmail1"
             aria-describedby="emailHelp"
@@ -72,13 +73,13 @@ function SignUpForm({ onSubmit, onChange }: Props) {
           />
         </div>
         <div className="mb-3">
-          <label htmlFor="exampleInputPassword1" className="form-label">
+          <label htmlFor="exampleInputPassword2" className="form-label">
             Confirm Password
           </label>
           <input
             type="password"
             className="form-control"
-            id="exampleInputPassword1"
+            id="exampleInputPassword2"
             onChange={onChange}
           />
         </div>
@@ -88,6 +89,7 @@ function SignUpForm({ onSubmit, onChange }: Props) {
             className="form-check-input"
             id="exampleCheck1"
           />
+          <p>Agree to terms and condition</p>
         </div>
         <button type="submit" className="btn btn-primary">
           SIGN UP

@@ -27,6 +27,7 @@ function Singup() {
   const handleSignup = (e: React.FormEvent) => {
     // console.log("Signing up ", email, password);
     e.preventDefault();
+    try {
     registerUser(
       formData.first_name,
       formData.last_name,
@@ -34,6 +35,10 @@ function Singup() {
       formData.password,
       formData.dob
     );
+    } catch (error) {
+      console.error("Error during registration:", error);
+      return;
+    }
     navigate("/"); // Redirect to SignIn page after successful registration
   };
 

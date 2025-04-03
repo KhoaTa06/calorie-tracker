@@ -1,4 +1,4 @@
-import apiClient from 'client';
+import apiClient from "./client";
 export const createExercise = async (exercise) => {
     try {
         const response = await apiClient.post('/exercise', exercise);
@@ -8,9 +8,10 @@ export const createExercise = async (exercise) => {
         throw new Error('Error creating exercise entry');
     }
 };
-export const getExercises = async (user_id) => {
+export const getExercises = async () => {
     try {
-        const response = await apiClient.get(`/exercise/${user_id}`);
+        const response = await apiClient.get(`/exercises`);
+        console.log("Fetched exercises:", response.data);
         return response.data;
     }
     catch (error) {
