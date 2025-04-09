@@ -1,0 +1,20 @@
+{
+    "name": "@frontapp/types",
+    "private": true,
+    "version": "1.0.0",
+    "type": "module",
+    "scripts": {
+        "dev": "tsc --watch",
+        "build": "tsc"
+    },
+    "exports": {
+        "./AuthContextType": {
+            "types": "./src/auth/AuthContextType.tsx",
+            "default": "./dist/auth/AuthContextType.tsx"
+        }
+    },
+    "devDependencies": {
+        "react": "^19.1.0",
+        "typescript": "^5.8.2"
+    }
+}
