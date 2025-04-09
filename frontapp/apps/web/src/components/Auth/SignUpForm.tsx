@@ -88,6 +88,15 @@ function SignUpForm({ onSubmit, onChange }: Props) {
             type="checkbox"
             className="form-check-input"
             id="exampleCheck1"
+            onChange={onChange}
+          />
+          <p>Admin access</p>
+        </div>
+        <div className="mb-3 form-check">
+          <input
+            type="checkbox"
+            className="form-check-input"
+            id="exampleCheck2"
           />
           <p>Agree to terms and condition</p>
         </div>

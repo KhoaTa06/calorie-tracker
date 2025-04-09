@@ -2,6 +2,7 @@ import React, { useState, useContext } from "react";
 // import { useNavigate } from "react-router-dom";
 import SignInForm from "../components/Auth/SignInForm";
 import { AuthContext } from "@frontapp/api_call/AuthContext";
+import { AuthContextType } from "@frontapp/types/AuthContextType";
 
 function SignIn() {
   const [formData, setFormData] = useState({
@@ -9,11 +10,11 @@ function SignIn() {
     password: "",
   });
 
-  const authContext = useContext(AuthContext);
+  const authContext = useContext(AuthContext as React.Context<AuthContextType>);
   if (!authContext) {
     throw new Error("AuthContext not initialized");
   }
-  const { loginUser } = authContext;
+  const { login } = authContext;
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -22,7 +23,7 @@ function SignIn() {
   const handleLogin = (e: React.FormEvent) => {
     console.log("Logging in ", formData.email, formData.password);
     e.preventDefault();
-    loginUser(formData.email, formData.password);
+    login(formData.email, formData.password);
   };
 
   return (

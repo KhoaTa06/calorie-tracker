@@ -1,7 +1,8 @@
 import React, { useState, useContext } from "react";
-import { AuthContext } from "../../contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
 import SignUpForm from "../components/Auth/SignUpForm";
+import { AuthContext } from "@frontapp/api_call/AuthContext";
+import { AuthContextType } from "@frontapp/types/AuthContextType";
 
 function Singup() {
   let navigate = useNavigate();
@@ -12,13 +13,14 @@ function Singup() {
     email: "",
     password: "",
     dob: "",
+    admin: false
   });
 
-  const authContext = useContext(AuthContext);
+  const authContext = useContext(AuthContext as React.Context<AuthContextType>);
   if (!authContext) {
     throw new Error("AuthContext not initialized");
   }
-  const { registerUser } = authContext;
+  const { register } = authContext;
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -28,12 +30,13 @@ function Singup() {
     // console.log("Signing up ", email, password);
     e.preventDefault();
     try {
-    registerUser(
+    register(
       formData.first_name,
       formData.last_name,
+      formData.dob,
       formData.email,
       formData.password,
-      formData.dob
+      formData.admin
     );
     } catch (error) {
       console.error("Error during registration:", error);

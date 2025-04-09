@@ -9,8 +9,12 @@
     },
     "exports": {
         "./AuthContextType": {
-            "types": "./src/auth/AuthContextType.tsx",
-            "default": "./dist/auth/AuthContextType.tsx"
+            "types": "./src/auth/AuthContextType.ts",
+            "default": "./dist/auth/AuthContextType.ts"
+        },
+        "./ExerciseType": {
+            "types": "./src/exercise/ExerciseType.ts",
+            "default": "./dist/exercise/ExerciseType.ts"
         }
     },
     "devDependencies": {

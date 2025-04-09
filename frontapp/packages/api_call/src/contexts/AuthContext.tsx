@@ -3,7 +3,7 @@ import React, { createContext, useState, useEffect } from "react";
 import { loginUser, fetchUserProfile, registerUser } from '../api/api.tsx';
 import {AuthContextType} from '@frontapp/types/AuthContextType';
 
-const AuthContext = React.createContext<AuthContextType>({
+const AuthContext = createContext<AuthContextType>({
     token: null,
     email: null,
     login: async () => {},

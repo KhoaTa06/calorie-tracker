@@ -11,6 +11,10 @@
         "./AuthContext": {
             "types": "./src/contexts/AuthContext.tsx",
             "default": "./dist/contexts/AuthContext.tsx"
+        },
+        "./Exercise": {
+            "types": "./src/api/Exercise.ts",
+            "default": "./dist/api/Exercise.ts"
         }
     },
     "devDependencies": {

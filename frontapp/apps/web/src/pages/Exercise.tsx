@@ -1,30 +1,25 @@
-import { useState, useEffect, useContext } from "react";
+import { useEffect, useState } from "react";
 import ExercisePreview from "../components/Exercise/ExercisePre";
-import { AuthContext } from "../../contexts/AuthContext";
-import { getExercises } from "@frontend/shared"
+import { ExerciseType } from "@frontapp/types/ExerciseType";
+import { fetchExercises } from "@frontapp/api_call/Exercise";
 
 function Exercise() {
-    const authContext = useContext(AuthContext);
-    const { token } = authContext || {};
-    const [exercises, setExercises] = useState<Array<{id: number; name: string; calories: number}>>([]);
-    
-    useEffect(() => {
-        if (token) {
-            const fetchExercises = async () => {
-                try {
-                    const exercise1 = await getExercises();
-                    setExercises(exercise1);
-                    console.log("Fetched exercises:", exercise1);
+    const [exercises, setExercises] = useState([] as ExerciseType[]);
+    const token = localStorage.getItem('token');
 
+    useEffect(() => {
+        if(token){
+            const getExercises = async () => {
+                try {
+                    const response = await fetchExercises(token);
+                    setExercises(response);
                 } catch (error) {
                     console.error("Error fetching exercises:", error);
                 }
-
-            };
-            fetchExercises();
+            }
+            getExercises();
         }
     }, [token]);
-
     return (
         <>
         <div className="card">
