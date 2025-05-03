@@ -5,7 +5,7 @@ import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
 import Dashboard from "./pages/Dashboard";
 import UserProfile from "./pages/UserProfile";
-import Excercise from "./pages/Exercise";
+import Exercise from "./pages/Exercise";
 
 function App() {
   return (
@@ -16,7 +16,7 @@ function App() {
           <Route path="/signup" element={<SignUp />}></Route>
           <Route path="/dashboard" element={<Dashboard />}></Route>
           <Route path="/profile" element={<UserProfile />}></Route>
-          <Route path="/exercise" element={<Excercise />}></Route>
+          <Route path="/exercise" element={<Exercise />}></Route>
         </Routes>
       </AuthProvider>
     </Router>

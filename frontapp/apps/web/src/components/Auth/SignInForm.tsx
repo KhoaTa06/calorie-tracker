@@ -17,11 +17,10 @@ function SignInForm({ onSubmit, onChange }: Props) {
             Email address
           </label>
           <input
-            type="email"
+            type="text"
             name="email"
             className="form-control"
             id="exampleInputEmail1"
-            aria-describedby="emailHelp"
             onChange={onChange}
           />
         </div>

@@ -3,7 +3,7 @@ import axios from 'axios';
 const API_URL = "http://localhost:8000";
 
 const loginUser = async (credentials: {
-  email: string;
+  username: string;
   password: string;
 }) => {
   try {
@@ -12,6 +12,7 @@ const loginUser = async (credentials: {
       params.append(key, credentials[key as keyof typeof credentials]);
     }
 
+    console.log("Credentials: ", credentials);
     const response = await axios.post(`${API_URL}/auth/token`, credentials, {
       headers: {
         "Content-Type": "application/x-www-form-urlencoded",
@@ -35,7 +36,8 @@ const registerUser = async (userData: {
   
 }) => {
   try {
-    await axios.post('${API_URL}/auth/register', userData);
+    console.log("Registering user: ", userData);
+    await axios.post(`${API_URL}/auth/register`, userData);
   } catch (error) {
     console.log("Registration error: ", error);
     throw error;

@@ -1,4 +1,2 @@
-// export * from './api/auth';
-// export * from './api/food';
-// export * from './api/exercise';
-// export * from './utils';
+export * from "./authentication/AuthContext.tsx"
+export * from "./exercise/Exercise.tsx"

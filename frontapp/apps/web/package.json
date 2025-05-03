@@ -10,7 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@frontapp/api_call": "*",
+    "@frontapp/api_call": "workspace: *",
     "@frontapp/types": "*",
     "bootstrap": "^5.3.5",
     "react": "^19.1.0",

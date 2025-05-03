@@ -3,18 +3,20 @@
     "private": true,
     "version": "1.0.0",
     "type": "module",
+    "main": "./dist/index.js",
+    "types": "./dist/index.d.ts",
     "scripts": {
         "dev": "tsc --watch",
         "build": "tsc"
     },
     "exports": {
         "./AuthContext": {
-            "types": "./src/contexts/AuthContext.tsx",
-            "default": "./dist/contexts/AuthContext.tsx"
+            "types": "./src/authentication/AuthContext.tsx",
+            "default": "./dist/authentication/AuthContext.js"
         },
         "./Exercise": {
-            "types": "./src/api/Exercise.ts",
-            "default": "./dist/api/Exercise.ts"
+            "types": "./src/exercise/Exercise.ts",
+            "default": "./dist/exercise/Exercise.js"
         }
     },
     "devDependencies": {
@@ -23,6 +25,7 @@
         "typescript": "^5.8.2"
     },
     "dependencies": {
-        "@frontapp/types": "^1.0.0"
+        "@frontapp/types": "^1.0.0",
+        "@repo/typescript-config": "*"
     }
 }

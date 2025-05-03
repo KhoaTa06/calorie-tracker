@@ -1,7 +1,16 @@
 import React, { createContext, useState, useEffect } from "react";
 // import { useNavigate } from 'react-router-dom';
-import { loginUser, fetchUserProfile, registerUser } from '../api/api.tsx';
+import { loginUser, fetchUserProfile, registerUser } from './api.tsx';
 import {AuthContextType} from '@frontapp/types/AuthContextType';
+
+function convertDateFormat(date: string): string {
+    const parts = date.split('/');
+    if (parts.length !== 3 || !parts[0] || !parts[1] || !parts[2]) {
+      throw new Error('Invalid date format. Expected mm/dd/yyyy');
+    }
+    const [month, day, year] = parts;
+    return `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`;
+  }
 
 const AuthContext = createContext<AuthContextType>({
     token: null,
@@ -15,6 +24,7 @@ const AuthContext = createContext<AuthContextType>({
 interface AuthProviderProps {
     children: React.ReactNode;
 }
+
 const AuthProvider = ({ children }: AuthProviderProps) => {
     const [token, setToken] = useState(localStorage.getItem('token'));
     const [email, setEmail] = useState(null);
@@ -30,8 +40,8 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
         }
     }, [token]);
 
-    const login = async (email: string, password: string) => {
-        const response = await loginUser({ email, password });
+    const login = async (username: string, password: string) => {
+        const response = await loginUser({ username, password });
         if (response?.access_token) {
             setToken(response.access_token);
             localStorage.setItem('token', response.access_token);
@@ -48,7 +58,8 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
         email: string,
         password: string,
         admin: boolean) => {
-        await registerUser({ first_name, last_name, dob, email, password, admin });
+        const formattedDob = convertDateFormat(dob);
+        await registerUser({ first_name, last_name, dob: formattedDob, email, password, admin });
         // navigate('/login');
     };
 

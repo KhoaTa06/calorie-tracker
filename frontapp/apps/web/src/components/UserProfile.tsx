@@ -14,11 +14,13 @@ function UserProfile() {
   }
 
   return (
+    <>
     <div>
       <h2>User Profile</h2>
       <p>Email: {email}</p>
       <button onClick={logout}>Logout</button>
     </div>
+    </>
   );
 }
 
