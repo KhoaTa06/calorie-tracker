@@ -27,9 +27,13 @@ function SignIn() {
     login(formData.email, formData.password);
   };
 
+  const navItems = [
+    {title: "signup", link:"/signup"}
+  ]
+
   return (
     <>
-      <NavBar />
+      <NavBar items={navItems}/>
       <div className="d-flex align-items-center vh-100">
         <div className="container mt-5" style={{ width: "100%", maxWidth: "500px" }}>
           <div className="card p-4">

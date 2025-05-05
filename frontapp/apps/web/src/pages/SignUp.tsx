@@ -45,9 +45,13 @@ function Singup() {
     navigate("/"); // Redirect to SignIn page after successful registration
   };
 
+  const navItems = [
+    { title: "signin", link: "/" }
+  ];
+
   return (
     <>
-      <NavBar />
+      <NavBar items={navItems}/>
       <div className="container">
         <div className="col-6 mx-auto">
           <div className="text-center">
