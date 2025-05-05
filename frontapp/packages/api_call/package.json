@@ -14,9 +14,9 @@
             "types": "./src/authentication/AuthContext.tsx",
             "default": "./dist/authentication/AuthContext.js"
         },
-        "./Exercise": {
-            "types": "./src/exercise/Exercise.ts",
-            "default": "./dist/exercise/Exercise.js"
+        "./ExerciseContext": {
+            "types": "./src/exercise/ExerciseContext.tsx",
+            "default": "./dist/exercise/ExerciseContext.js"
         }
     },
     "devDependencies": {

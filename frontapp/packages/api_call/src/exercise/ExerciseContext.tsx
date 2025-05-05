@@ -2,7 +2,8 @@ import React, { createContext } from 'react';
 import { ExerciseContextType, ExerciseType } from '@frontapp/types/ExerciseType';
 import { fetchExercises, fetchExerciseById, createExercise, updateExercise, deleteExercise } from './api.tsx';
 
-const ExerciseContext = createContext<ExerciseContextType>({});
+const ExerciseContext = createContext<ExerciseContextType>({
+});
 
 interface ExerciseProviderProps {
   children: React.ReactNode;
@@ -62,3 +63,5 @@ const ExerciseProvider = ({ children }: ExerciseProviderProps) => {
     </ExerciseContext.Provider>
   );
 };
+
+export { ExerciseContext, ExerciseProvider }

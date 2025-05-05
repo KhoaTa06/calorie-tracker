@@ -1,6 +1,7 @@
 // import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "@frontapp/api_call/AuthContext";
+import { ExerciseProvider } from "@frontapp/api_call/ExerciseContext";
 import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
 import Dashboard from "./pages/Dashboard";
@@ -11,13 +12,15 @@ function App() {
   return (
     <Router>
       <AuthProvider>
-        <Routes>
-          <Route path="/" element={<SignIn />}></Route>
-          <Route path="/signup" element={<SignUp />}></Route>
-          <Route path="/dashboard" element={<Dashboard />}></Route>
-          <Route path="/profile" element={<UserProfile />}></Route>
-          <Route path="/exercise" element={<Exercise />}></Route>
-        </Routes>
+        <ExerciseProvider>
+          <Routes>
+            <Route path="/" element={<SignIn />}></Route>
+            <Route path="/signup" element={<SignUp />}></Route>
+            <Route path="/dashboard" element={<Dashboard />}></Route>
+            <Route path="/profile" element={<UserProfile />}></Route>
+            <Route path="/exercise" element={<Exercise />}></Route>
+          </Routes>
+        </ExerciseProvider>
       </AuthProvider>
     </Router>
   );
