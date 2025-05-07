@@ -59,15 +59,17 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
         password: string,
         admin: boolean) => {
         const formattedDob = convertDateFormat(dob);
+        try {
         await registerUser({ first_name, last_name, dob: formattedDob, email, password, admin });
-        // navigate('/login');
+        }catch (error) {
+            throw error;
+        }
     };
 
     const logout = () => {
         setToken(null);
         setEmail(null);
         localStorage.removeItem('token');
-        // navigate('/login');
     };
 
     return (

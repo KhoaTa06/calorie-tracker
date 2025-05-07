@@ -1,11 +1,17 @@
 import React, { useEffect, useState, useContext } from "react";
-import ExercisePreview from "../components/Exercise/ExercisePre";
+// import { useNavigate } from "react-router-dom";
+import ExercisePreview from "../../components/Exercise/ExercisePre";
 import { ExerciseType, ExerciseContextType } from "@frontapp/types/ExerciseType";
 import { ExerciseContext } from "@frontapp/api_call/ExerciseContext";
+import Navbar from "../../components/Navbar";
+import ExerciseAdd from "./ExerciseAdd";
+import { AuthorizeNavItems } from "../../components/Constant";
 
-function Exercise() {
+function ExerciseHome() {
     const [exercises, setExercises] = useState([] as ExerciseType[]);
     const token = localStorage.getItem('token');
+
+    // const navigate = useNavigate();
 
     const exerciseContext = useContext(ExerciseContext as React.Context<ExerciseContextType>);
     if (!exerciseContext) {
@@ -26,8 +32,23 @@ function Exercise() {
             getExercises();
         }
     }, [token]);
+
+    // const addHandler = () => {
+    //     return (true)
+    // }
     return (
         <>
+        <Navbar items={AuthorizeNavItems}/>
+
+        <div className="container">
+            <div className="row justify-content-between">
+                <div className="col"><h1>Exercises</h1></div>
+
+                <div className="col d-flex justify-content-end align-items-center">
+                    <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exerciseAddModal">Add Exercise</button>
+                </div>
+            </div>
+        </div>
         <div className="card">
             {exercises.map((exercise) => (
                 <ExercisePreview
@@ -38,8 +59,10 @@ function Exercise() {
                 />
             ))}
         </div>
+
+        <ExerciseAdd />
         </>
     );
 }
 
-export default Exercise;
+export default ExerciseHome;

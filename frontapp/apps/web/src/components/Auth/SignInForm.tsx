@@ -6,9 +6,6 @@ interface Props {
 }
 
 function SignInForm({ onSubmit, onChange }: Props) {
-  // const [email, setEmail] = useState("");
-  // const [password, setPassword] = useState("");
-
   return (
     <>
       <form onSubmit={onSubmit}>

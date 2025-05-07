@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-// import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import SignInForm from "../components/Auth/SignInForm";
 import { AuthContext } from "@frontapp/api_call/AuthContext";
 import { AuthContextType } from "@frontapp/types/AuthContextType";
@@ -10,6 +10,8 @@ function SignIn() {
     email: "",
     password: "",
   });
+
+  const navigate = useNavigate();
 
   const authContext = useContext(AuthContext as React.Context<AuthContextType>);
   if (!authContext) {
@@ -24,11 +26,16 @@ function SignIn() {
   const handleLogin = (e: React.FormEvent) => {
     console.log("Logging in ", formData.email, formData.password);
     e.preventDefault();
+    try {
     login(formData.email, formData.password);
+    } catch (error) {
+      console.error("Login error: ", error);
+    }
+    navigate("/dashboard")
   };
 
   const navItems = [
-    {title: "signup", link:"/signup"}
+    {title: "Signup", link:"/signup"}
   ]
 
   return (
