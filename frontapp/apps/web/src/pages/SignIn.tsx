@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import SignInForm from "../components/Auth/SignInForm";
 import { AuthContext } from "@frontapp/api_call/AuthContext";
 import { AuthContextType } from "@frontapp/types/AuthContextType";
-import NavBar from "../components/Navbar";
 
 function SignIn() {
   const [formData, setFormData] = useState({
@@ -34,13 +33,8 @@ function SignIn() {
     navigate("/dashboard")
   };
 
-  const navItems = [
-    {title: "Signup", link:"/signup"}
-  ]
-
   return (
     <>
-      <NavBar items={navItems}/>
       <div className="d-flex align-items-center vh-100">
         <div className="container mt-5" style={{ width: "100%", maxWidth: "500px" }}>
           <div className="card p-4">

@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Depends, HTTPException, status
 
-from backend.auth.auth_handler import get_current_active_user
+from auth.auth_handler import get_current_active_user
 
 from sqlModels import Food, FoodLog, User, get_session
 from sqlmodel import Session, select

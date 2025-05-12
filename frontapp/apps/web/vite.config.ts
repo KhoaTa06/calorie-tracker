@@ -11,6 +11,7 @@ export default defineConfig({
   
     '@frontapp/api_call/AuthContext': path.resolve(__dirname, '../../packages/api_call/src/authentication/AuthContext.tsx'),
     '@frontapp/api_call/ExerciseContext': path.resolve(__dirname, '../../packages/api_call/src/exercise/ExerciseContext.tsx'),
+    '@frontapp/api_call/FoodContext': path.resolve(__dirname, '../../packages/api_call/src/food/FoodContext.tsx'),
   }
   },
 })

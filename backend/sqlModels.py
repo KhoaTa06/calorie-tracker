@@ -43,24 +43,32 @@ class Exercise(SQLModel, table=True):
     calories: Optional[int]
     date: Optional[datetime] = Field(sa_column=Column(TIMESTAMP(timezone=True), default=datetime.now()))
 
-class Food(SQLModel, table=True):
-    id: Optional[int] = Field(default=None, primary_key=True)
-    fc_food_id: Optional[int]
-    fc_serving_id: Optional[int]
-    fc_image_url: Optional[str]
-    food_name: Optional[str]
-    brand_name: Optional[str]
-    calories: Optional[int]
-    protein: Optional[int]
-    carbohydrates: Optional[int]
-    fat: Optional[int]
-    fiber: Optional[int]
-    sugar: Optional[int]
-    vitamin_a: Optional[int]
-    vitamin_c: Optional[int]
-    calcium: Optional[int]
-    iron: Optional[int]
-    potassium: Optional[int]
+class foodNutrient(SQLModel):
+    id: Optional[int] = Field(primary_key=True)
+    name: str
+    amount: float
+    unitName: str
+
+class FoodBase(SQLModel):
+    fdcId: int = Field(primary_key=True)
+    dataType: str
+    description: str
+    foodCatergory: str
+    foodNutrients: list[foodNutrient]
+    publicationDate: str
+
+
+class ABridgedFood(FoodBase, table=True):
+    brandOwner: str
+
+class BrandedFood(FoodBase, table=True):
+    brandOwner: str
+    dataSource: str
+    ingredients: str
+    servingSize: int
+    servingSizeUnit: str
+
+
 
 class DailySummary(SQLModel, table=True):
     id: Optional[int] = Field(default=None, primary_key=True)

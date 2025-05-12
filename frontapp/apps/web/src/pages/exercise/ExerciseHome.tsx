@@ -14,9 +14,6 @@ function ExerciseHome() {
     // const navigate = useNavigate();
 
     const exerciseContext = useContext(ExerciseContext as React.Context<ExerciseContextType>);
-    if (!exerciseContext) {
-        throw new Error("ExerciseContext not initialized");
-    }
     const { fetchAllExercises } = exerciseContext;
 
     useEffect(() => {
@@ -33,9 +30,9 @@ function ExerciseHome() {
         }
     }, [token]);
 
-    // const addHandler = () => {
-    //     return (true)
-    // }
+    const addHandler = () => {
+        return (true)
+    }
     return (
         <>
         <Navbar items={AuthorizeNavItems}/>
@@ -60,7 +57,7 @@ function ExerciseHome() {
             ))}
         </div>
 
-        <ExerciseAdd />
+        <ExerciseAdd onSubmit={addHandler}/>
         </>
     );
 }

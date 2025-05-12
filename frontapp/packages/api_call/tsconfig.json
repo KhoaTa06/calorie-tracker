@@ -8,13 +8,15 @@
         "allowImportingTsExtensions": true,
         "paths": {
             "@frontapp/api_call/AuthContext": ["./src/authentication/AuthContext.tsx"],
-            "@frontapp/api_call/ExerciseContext": ["./src/exercise/ExerciseContext.tsx"]
+            "@frontapp/api_call/ExerciseContext": ["./src/exercise/ExerciseContext.tsx"],
+            "@frontapp/api_call/FoodContext": ["./src/food/FoodContext.tsx"],
         }
     },
     "include": ["src"],
     "exclude": ["node_modules", "dist"],
     "files": [
         "./src/authentication/AuthContext.tsx",
-        "./src/exercise/ExerciseContext.tsx"
+        "./src/exercise/ExerciseContext.tsx",
+        "./src/food/FoodContext.tsx"
     ]
 }

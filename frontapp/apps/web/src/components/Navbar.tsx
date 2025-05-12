@@ -1,4 +1,6 @@
 import {NavLink} from "react-router-dom";
+import 'bootstrap/dist/js/bootstrap.bundle.min.js';
+
 
 interface Props {
     items: Array<{title: string; link: string}>;
@@ -7,36 +9,19 @@ interface Props {
 const NavBar = ({items}: Props) => {
     return(
         <>
-          <nav className="navbar navbar-expand-lg navbar-light bg-light">
-            <div className="container-fluid">
-                <NavLink className="navbar-brand" to="/">Calories Tracker</NavLink>
-                <button
-                    className="navbar-toggler"
-                    type="button"
-                    data-bs-toggle="collapse"
-                    data-bs-target="#navbarNav"
-                    aria-controls="navbarNav"
-                    aria-expanded="false"
-                    aria-label="Toggle navigation"
-                >
-                <span className="navbar-toggler-icon"></span>
-                </button>
-
-                <div className="collapse navbar-collapse" id="navbarNav">
-                    <ul className="navbar-nav ms-auto">
-                        {items.map((item, index) => (
-                            <li className="nav-item" key={index}>
-                                <NavLink
-                                    className={({isActive}) => `nav-link ${isActive ? 'active' : ''}`}
-                                    to={item.link}
-                                    >
-                                        {item.title}
-                                </NavLink>
-                            </li>
-                        ))}
-                    </ul>
-                </div>
-            </div>
+          <nav className="nav flex-column p-3" style={{width: "5%", position: "fixed"}}>
+            <ul className="nav flex-column justify-content-left">
+                {items.map((item, index) => (
+                    <li className="nav-item" key={index}>
+                        <NavLink
+                            className={({isActive}) => `nav-link ${isActive ? 'active' : ''}`}
+                            to={item.link}
+                            >
+                                {item.title}
+                        </NavLink>
+                    </li>
+                ))}
+            </ul>
           </nav>
         </>
     )

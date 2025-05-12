@@ -1,23 +1,24 @@
-import { useNavigate } from 'react-router-dom';
-import Navbar from '../../components/Navbar';
+import NavBar from '../../components/Navbar';
+import SearchBar from '../../components/SearchBar';
 import Breadcrumb from '../../components/Breadcrumb';
 import { AuthorizeNavItems } from '../../components/Constant';
+import FoodSearch from '../../components/Food/FoodSearch';
 
 function FoodHome() {
-    const navigate = useNavigate();
-
-    const handleNavigation = () => {
-        navigate('/food/id');
-    };
-
     return (
         <div>
-            <Navbar items={AuthorizeNavItems}/>
-            <h1>Food Home</h1>
-            <Breadcrumb items={[{ title: "Food", link: "/food" }, { title: "Food Home", link: "/food/home" }]} />
-            <button onClick={handleNavigation} className="btn btn-primary">
-            Go to Food ID
-            </button>
+            <SearchBar searchBox={<FoodSearch />} />
+            <div className="container-fluid">
+                <div className="row">
+                    <div className="col-2">
+                        <NavBar items={AuthorizeNavItems}/>
+                    </div>
+                    <div className="col">
+                                <h1>Food Home</h1>
+                                <Breadcrumb items={[{ title: "Food", link: "/food" }]} />
+                    </div>
+                </div>
+            </div>
         </div>
     );
 }

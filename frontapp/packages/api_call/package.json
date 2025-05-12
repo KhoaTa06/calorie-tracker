@@ -17,6 +17,10 @@
         "./ExerciseContext": {
             "types": "./src/exercise/ExerciseContext.tsx",
             "default": "./dist/exercise/ExerciseContext.js"
+        },
+        "./FoodContext": {
+            "types": "./src/food/FoodContext.tsx",
+            "default": "./dist/food/FoodContext.js"
         }
     },
     "devDependencies": {
