@@ -1,22 +1,15 @@
 import React, { useEffect, useState, useContext } from "react";
-// import { useNavigate } from "react-router-dom";
 import ExercisePreview from "../../components/Exercise/ExercisePre";
 import { ExerciseType, ExerciseContextType } from "@frontapp/types/ExerciseType";
 import { ExerciseContext } from "@frontapp/api_call/ExerciseContext";
-import Navbar from "../../components/Navbar";
+import Navbar from "../../components/NavBar";
 import ExerciseAdd from "./ExerciseAdd";
-import { AuthorizeNavItems } from "../../components/Constant";
 
 function ExerciseHome() {
     const [exercises, setExercises] = useState([] as ExerciseType[]);
     const token = localStorage.getItem('token');
 
-    // const navigate = useNavigate();
-
     const exerciseContext = useContext(ExerciseContext as React.Context<ExerciseContextType>);
-    if (!exerciseContext) {
-        throw new Error("ExerciseContext not initialized");
-    }
     const { fetchAllExercises } = exerciseContext;
 
     useEffect(() => {
@@ -33,12 +26,12 @@ function ExerciseHome() {
         }
     }, [token]);
 
-    // const addHandler = () => {
-    //     return (true)
-    // }
+    const addHandler = () => {
+        return (true)
+    }
     return (
         <>
-        <Navbar items={AuthorizeNavItems}/>
+        <Navbar/>
 
         <div className="container">
             <div className="row justify-content-between">
@@ -60,7 +53,7 @@ function ExerciseHome() {
             ))}
         </div>
 
-        <ExerciseAdd />
+        <ExerciseAdd onSubmit={addHandler}/>
         </>
     );
 }

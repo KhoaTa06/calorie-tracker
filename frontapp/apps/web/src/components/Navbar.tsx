@@ -1,46 +1,79 @@
 import {NavLink} from "react-router-dom";
 
-interface Props {
-    items: Array<{title: string; link: string}>;
-}
+const NavBar = () => {
+    const foodNavItems = [
+        { title: "Discover Food", link: "/food" },
+        { title: "Food Log", link: "/food/diary" },]
 
-const NavBar = ({items}: Props) => {
+    const exerciseNavItems = [
+        { title: "Exercise Summary", link: "/exercise/summary" },
+        { title: "Exercise Log", link: "/exercise/log" },]
+
     return(
         <>
-          <nav className="navbar navbar-expand-lg navbar-light bg-light">
-            <div className="container-fluid">
-                <NavLink className="navbar-brand" to="/">Calories Tracker</NavLink>
-                <button
-                    className="navbar-toggler"
-                    type="button"
-                    data-bs-toggle="collapse"
-                    data-bs-target="#navbarNav"
-                    aria-controls="navbarNav"
-                    aria-expanded="false"
-                    aria-label="Toggle navigation"
-                >
-                <span className="navbar-toggler-icon"></span>
-                </button>
+          <nav className="nav flex-column p-3" style={{position: "fixed"}}>
+            <ul className="list-unstyled ps-0">
 
-                <div className="collapse navbar-collapse" id="navbarNav">
-                    <ul className="navbar-nav ms-auto">
-                        {items.map((item, index) => (
-                            <li className="nav-item" key={index}>
+                <li className="mb-1">
+                    <NavLink
+                        className="link-dark"
+                        to="/dashboard"
+                        >
+                            Dashboard
+                    </NavLink>
+                </li>
+
+                <li className="mb-1">
+                    <button
+                    className="btn btn-toggle align-items-center rounded collapsed dropdown-toggle"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#collapseFood"
+                    aria-expanded="false"                    
+                    >
+                        Food
+                    </button>
+                    <div className="collapse" id="collapseFood">
+                        <ul className="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                            {foodNavItems.map((item, index) => (
+                                <li key={index}>
                                 <NavLink
-                                    className={({isActive}) => `nav-link ${isActive ? 'active' : ''}`}
+                                    className="link-dark rounded"
                                     to={item.link}
                                     >
                                         {item.title}
                                 </NavLink>
-                            </li>
-                        ))}
-                    </ul>
-                </div>
-            </div>
+                            </li>))}
+                        </ul>
+                    </div>
+                </li>
+                    
+                <li className="mb-1">
+                    <button
+                    className="btn btn-toggle align-items-center rounded collapsed dropdown-toggle"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#collapseExercise"
+                    aria-expanded="false"                    
+                    >
+                        Exercise
+                    </button>
+                    <div className="collapse" id="collapseExercise">
+                        <ul className="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                            {exerciseNavItems.map((item, index) => (
+                                <li key={index}>
+                                <NavLink
+                                    className="link-dark rounded"
+                                    to={item.link}
+                                    >
+                                        {item.title}
+                                </NavLink>
+                            </li>))}
+                        </ul>
+                    </div>
+                </li>
+            </ul>
           </nav>
         </>
     )
-
 }
 
 export default NavBar;

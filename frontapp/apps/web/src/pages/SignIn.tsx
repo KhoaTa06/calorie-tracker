@@ -3,13 +3,14 @@ import { useNavigate } from "react-router-dom";
 import SignInForm from "../components/Auth/SignInForm";
 import { AuthContext } from "@frontapp/api_call/AuthContext";
 import { AuthContextType } from "@frontapp/types/AuthContextType";
-import NavBar from "../components/Navbar";
 
 function SignIn() {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
+
+  const [error, setError] = useState(false);
 
   const navigate = useNavigate();
 
@@ -23,24 +24,25 @@ function SignIn() {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleLogin = (e: React.FormEvent) => {
+  const handleLogin = async (e: React.FormEvent) => {
     console.log("Logging in ", formData.email, formData.password);
     e.preventDefault();
     try {
-    login(formData.email, formData.password);
+      await login(formData.email, formData.password);
+      navigate("/dashboard")
     } catch (error) {
       console.error("Login error: ", error);
+      setError(true);
+      return;
     }
-    navigate("/dashboard")
   };
-
-  const navItems = [
-    {title: "Signup", link:"/signup"}
-  ]
 
   return (
     <>
-      <NavBar items={navItems}/>
+      {error == true && 
+      <div className="alert alert-danger" role="alert">
+        email and password does not match or exist
+      </div>}
       <div className="d-flex align-items-center vh-100">
         <div className="container mt-5" style={{ width: "100%", maxWidth: "500px" }}>
           <div className="card p-4">

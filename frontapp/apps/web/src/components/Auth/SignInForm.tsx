@@ -1,4 +1,5 @@
 import React from "react";
+import { NavLink } from "react-router-dom";
 
 interface Props {
   onSubmit: (e: React.FormEvent) => void;
@@ -44,7 +45,10 @@ function SignInForm({ onSubmit, onChange }: Props) {
             Remember me
           </label>
         </div>
-        <button type="submit" className="btn btn-primary">
+        <div>
+          <NavLink to="/signup">Signup here</NavLink>
+        </div>
+        <button type="submit" className="btn btn-primary d-flex mx-auto justify-content-center" style={{ width: "100%" }}>
           LOG IN
         </button>
       </form>

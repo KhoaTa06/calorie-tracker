@@ -1,9 +1,11 @@
 from fastapi import APIRouter, Depends, HTTPException, status
 
-from backend.auth.auth_handler import get_current_active_user
+from auth.auth_handler import get_current_active_user
 
 from sqlModels import Food, FoodLog, User, get_session
 from sqlmodel import Session, select
+
+from datetime import datetime
 
 router = APIRouter()
 
@@ -48,10 +50,11 @@ async def update_food(food: Food,
 
 
 # food log class request
-@router.get('/log/foods')
-async def get_food_logs(db: Session = Depends(get_session),
+@router.get('/log/foods/{date}')
+async def get_food_logs(date: datetime,
+                        db: Session = Depends(get_session),
                         current_user: User = Depends(get_current_active_user)):
-    food_logs = db.exec(select(FoodLog).where(FoodLog.user_id == current_user.id)).all()
+    food_logs = db.exec(select(FoodLog).where(FoodLog.user_id == current_user.id & FoodLog.date == date)).all()
     if not food_logs:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="No food logs found")
     if food_logs.user_id != current_user.id:

@@ -13,3 +13,12 @@ sqlalchemy
 passlib
 python-multipart
 sqlmodel
+pydantic-core
+click
+starlette
+typing-extensions
+typing_inspection
+annotated_types
+anyio
+sniffio
+h11

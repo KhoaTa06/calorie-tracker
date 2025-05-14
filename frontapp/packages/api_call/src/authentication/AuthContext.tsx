@@ -41,13 +41,17 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
     }, [token]);
 
     const login = async (username: string, password: string) => {
-        const response = await loginUser({ username, password });
-        if (response?.access_token) {
-            setToken(response.access_token);
-            localStorage.setItem('token', response.access_token);
-            const userProfile = await fetchUserProfile(response.access_token);
-            setEmail(userProfile);
-            // navigate('/profile');
+        try{
+            const response = await loginUser({ username, password });
+            if (response.access_token) {
+                setToken(response.access_token);
+                localStorage.setItem('token', response.access_token);
+                const userProfile = await fetchUserProfile(response.access_token);
+                setEmail(userProfile);
+            }
+        }catch (error) {
+            console.error("Login error: ", error);
+            throw error;
         }
     };
 

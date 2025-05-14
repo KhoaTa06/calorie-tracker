@@ -15,6 +15,10 @@
         "./ExerciseType": {
             "types": "./src/exercise/ExerciseType.ts",
             "default": "./dist/exercise/ExerciseType.ts"
+        },
+        "./FoodType": {
+            "types": "./src/food/FoodType.ts",
+            "default": "./dist/food/FoodType.ts"
         }
     },
     "devDependencies": {

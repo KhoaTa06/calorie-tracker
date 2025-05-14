@@ -1,21 +1,28 @@
 // import React from "react";
-import Navbar from "../components/Navbar";
-import { AuthorizeNavItems } from "../components/Constant";
+import Navbar from "../components/NavBar";
+import SearchBar from "../components/SearchBar";
 
 function Dashboard() {
   return (
   <>
-  <Navbar items={AuthorizeNavItems}/>
-    <div>
-        <div>Summary</div>
-        <div>Calories</div>
-        <div>Proteins</div>
-        <div>Carbs</div>
-        <div>Fats</div>
-        <div>Steps</div>
-        <div>Distance</div>
+  <SearchBar />
+  <div className="container-fluid">
+    <div className="row">
+      <div className="col-2"><Navbar/></div>
+        <div className="col">
+          <div>
+              <div>Summary</div>
+              <div>Calories</div>
+              <div>Proteins</div>
+              <div>Carbs</div>
+              <div>Fats</div>
+              <div>Steps</div>
+              <div>Distance</div>
+          </div>
+        </div>
     </div>
-  </>
+  </div>
+    </>
   );
 }
 

@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import SignUpForm from "../components/Auth/SignUpForm";
 import { AuthContext } from "@frontapp/api_call/AuthContext";
 import { AuthContextType } from "@frontapp/types/AuthContextType";
-import NavBar from "../components/Navbar";
 
 function Singup() {
   let navigate = useNavigate();
@@ -45,13 +44,8 @@ function Singup() {
     navigate("/"); // Redirect to SignIn page after successful registration
   };
 
-  const navItems = [
-    { title: "signin", link: "/" }
-  ];
-
   return (
     <>
-      <NavBar items={navItems}/>
       <div className="container">
         <div className="col-6 mx-auto">
           <div className="text-center">
