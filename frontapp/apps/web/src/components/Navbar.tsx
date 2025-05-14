@@ -1,4 +1,6 @@
 import {NavLink} from "react-router-dom";
+import 'bootstrap/dist/js/bootstrap.bundle.min.js';
+
 
 const NavBar = () => {
     const foodNavItems = [
