@@ -102,6 +102,15 @@ export interface FoodLogProps {
     date: string;
 }
 
+export interface FoodLogResponse {
+    id: number;
+    food_id: number;
+    user_id: number;
+    quantity: number;
+    unit: string;
+    date: string;
+}
+
 export const blackListNutrient = [
     "SFA 4:0",
     "SFA 6:0",

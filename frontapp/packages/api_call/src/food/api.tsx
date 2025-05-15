@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { FoodLogProps } from '@frontapp/types/FoodType';
+import { FoodLogProps, FoodLogResponse } from '@frontapp/types/FoodType';
 
 const USDA_API = "https://api.nal.usda.gov/fdc";
 const API_KEY = "AzIyMbMHTbAI8CPQzSWftS3qbbAmHx6kmHbhzVKz"
@@ -56,14 +56,15 @@ export const addFoodLogs = async (token: string, log: FoodLogProps) => {
     }
 }
 
-export const fetchFoodLogs = async (token: string, date: string) => {
+export const fetchFoodLogs = async (token: string, date: string): Promise<FoodLogResponse[]> => {
     try {
-        console.log("Date: ", date);
-        const response = await axios.get(`${BACKEND_URL}/log/food/${date}`, {
+        const response = await axios.get(`${BACKEND_URL}/log/foods/${date}`, {
             headers: {
                 Authorization: `Bearer ${token}`,
             }
         })
+        console.log("Fetch food log(api): ", response.data);
+        return response.data;
     }catch (error) {
         console.log("Fetch food log error: ", error);
         throw error;

@@ -3,7 +3,7 @@ import {fetchFoodQuery, fetchFoodDetail, fetchFoodLogs, addFoodLogs} from './api
 import { AuthContext } from '@frontapp/api_call/AuthContext';
 import { useContext } from 'react';
 import { AuthContextType } from '@frontapp/types/AuthContextType';
-import { FoodLogProps } from '@frontapp/types/FoodType';
+import { FoodLogResponse } from '@frontapp/types/FoodType';
 
 const FoodContext = createContext({});
 
@@ -38,10 +38,10 @@ const FoodProvider = ({children}: FoodProviderProps) => {
             }
     }
 
-    const fetchFoodLog = async (date: string) => {
+    const fetchFoodLog = async (date: string): Promise<FoodLogResponse[]> => {
         try {
-            console.log("Fetch food date: ", date);
             const response = await fetchFoodLogs(token, date);
+            console.log("Fetch food log: ", response);
             return response;
         }catch (error) {
             console.error('Error fetching food logs:', error);

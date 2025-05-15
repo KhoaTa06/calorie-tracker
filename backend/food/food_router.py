@@ -54,11 +54,10 @@ async def update_food(food: Food,
 async def get_food_logs(date: datetime,
                         db: Session = Depends(get_session),
                         current_user: User = Depends(get_current_active_user)):
-    food_logs = db.exec(select(FoodLog).where(FoodLog.user_id == current_user.id & FoodLog.date == date)).all()
+    food_logs = db.exec(select(FoodLog).where(FoodLog.user_id == current_user.id, FoodLog.date == date)).all()
+    print("Food logs: ", food_logs)
     if not food_logs:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="No food logs found")
-    if food_logs.user_id != current_user.id:
-        raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Not authorized to access these food logs")
     return food_logs
 
 @router.get('/log/food/{food_id}')
