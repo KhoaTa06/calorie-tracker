@@ -8,9 +8,10 @@ import { FoodLogResponse } from "@frontapp/types/FoodType";
 
 function FoodDiary() {
     const [foodList, setFoodList] = useState<FoodLogResponse[]>([]);
+    const [foodListName, setFoodListName] = useState<any[]>([]);
     var { date } = useParams<{date: string}>();
     const foodContext = useContext(FoodContext as React.Context<any>);
-    const {fetchFoodLog} = foodContext;
+    const {fetchFoodList, fetchFoodLog} = foodContext;
 
     const navigate = useNavigate();
 
@@ -34,13 +35,25 @@ function FoodDiary() {
         try {
             const getLog = async () => {
                 setFoodList(await fetchFoodLog(date));
-                console.log("Food Log: ", foodList);
             }
             getLog();
         }catch (error) {
             console.error("Error fetching food log:", error);
         }
     }, [date]);
+
+    useEffect(() => {
+        try {
+            const getLogDetails = async () => {
+                if (!foodList || foodList.length === 0) return;
+                const foodDetails = await fetchFoodList(foodList.map((food) => food.food_id));
+                setFoodListName(foodDetails);
+            }
+            getLogDetails();
+        }catch (error) {
+            console.error("Error fetching food details:", error);
+        }
+    }, [foodList]);
 
     return (
         <>
@@ -62,8 +75,9 @@ function FoodDiary() {
                     <div className="container p-2">
                         <ul className="list-group">
                             {foodList.map((food, index) => {
-                                return (<Link to={`/food/details/${food.food_id}`} className="list-group-item list-group-item-action">
-                                    <p>{food.food_id}</p>
+                                const foodName = foodListName[index]?.description || "Unknown food";
+                                return (<Link to={`/food/details/${food.food_id}`} className="list-group-item list-group-item-action" key={index}>
+                                    <p>{foodName}</p>
                                     <p>{food.quantity} {food.unit}</p>
                                     </Link>
                                 )

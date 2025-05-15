@@ -9,7 +9,6 @@ import { blackListNutrient } from "@frontapp/types/FoodType";
 import { FoodLogProps } from '@frontapp/types/FoodType';
 import FoodAdd from './FoodAdd';
 
-
 function FoodDetails() {
     const { fdcId } = useParams<{fdcId: string}> ();
     const token = localStorage.getItem('token');

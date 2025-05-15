@@ -1,5 +1,5 @@
 import React, {createContext } from 'react';
-import {fetchFoodQuery, fetchFoodDetail, fetchFoodLogs, addFoodLogs} from './api.tsx';
+import {fetchFoodQuery, fetchFoodDetail, fetchFoodLists, fetchFoodLogs, addFoodLogs} from './api.tsx';
 import { AuthContext } from '@frontapp/api_call/AuthContext';
 import { useContext } from 'react';
 import { AuthContextType } from '@frontapp/types/AuthContextType';
@@ -38,10 +38,20 @@ const FoodProvider = ({children}: FoodProviderProps) => {
             }
     }
 
+    const fetchFoodList = async (fdcIds: number[]) => {
+        try {
+            const response = await fetchFoodLists(fdcIds);
+            console.log("Food List: ", fdcIds);
+            return response;
+        }catch (error) {
+            console.error('Error fetching food list:', error);
+            throw error;
+        }
+    }
+
     const fetchFoodLog = async (date: string): Promise<FoodLogResponse[]> => {
         try {
             const response = await fetchFoodLogs(token, date);
-            console.log("Fetch food log: ", response);
             return response;
         }catch (error) {
             console.error('Error fetching food logs:', error);
@@ -59,7 +69,7 @@ const FoodProvider = ({children}: FoodProviderProps) => {
     }
 
     return (
-        <FoodContext.Provider value={{ fetchFoodSearch, fetchFoodDetails, fetchFoodLog, addFoodLog }}>
+        <FoodContext.Provider value={{ fetchFoodSearch, fetchFoodDetails, fetchFoodList, fetchFoodLog, addFoodLog }}>
             {children}
         </FoodContext.Provider>
     );

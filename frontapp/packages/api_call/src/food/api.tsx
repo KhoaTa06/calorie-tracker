@@ -25,14 +25,21 @@ export const fetchFoodDetail = async (fdcId: number) => {
     return response.data;
 }
 
-export const fetchFoodList = async (fdcIds: [number]) => {
-    const response = await axios.get(`${USDA_API}/v1/foods`, {
-        params: {
-            fdcIds: fdcIds,
-            api_key: API_KEY,
-        }
+export const fetchFoodLists = async (fdcIds: number[]) => {
+    try {
+        const fdcIdsString = fdcIds.join(',');
+        console.log("FDC IDs: ", fdcIdsString);
+        const response = await axios.get(`${USDA_API}/v1/foods`, {
+            params: {
+                api_key: API_KEY,
+                fdcIds: fdcIdsString,
+            }
     });
     return response.data;
+    } catch (error) {
+        console.error("Error fetching food list: ", error);
+        throw error;
+    }
 }
 
 export const addFoodLogs = async (token: string, log: FoodLogProps) => {
@@ -63,7 +70,6 @@ export const fetchFoodLogs = async (token: string, date: string): Promise<FoodLo
                 Authorization: `Bearer ${token}`,
             }
         })
-        console.log("Fetch food log(api): ", response.data);
         return response.data;
     }catch (error) {
         console.log("Fetch food log error: ", error);
