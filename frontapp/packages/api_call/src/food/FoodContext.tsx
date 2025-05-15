@@ -38,9 +38,10 @@ const FoodProvider = ({children}: FoodProviderProps) => {
             }
     }
 
-    const fetchFoodLog = async (date: Date) => {
+    const fetchFoodLog = async (date: string) => {
         try {
-            const response = await fetchFoodLogs(token);
+            console.log("Fetch food date: ", date);
+            const response = await fetchFoodLogs(token, date);
             return response;
         }catch (error) {
             console.error('Error fetching food logs:', error);
@@ -48,10 +49,9 @@ const FoodProvider = ({children}: FoodProviderProps) => {
         }
     }
 
-    const addFoodLog = async (log: FoodLogProps) => {
+    const addFoodLog = async (log: any) => {
         try {
-            const response = await addFoodLogs(token, log);
-            return response;
+            await addFoodLogs(token, log.foodLog);
         }catch (error) {
             console.error('Error adding food log:', error);
             throw error;

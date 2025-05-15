@@ -36,10 +36,18 @@ export const fetchFoodList = async (fdcIds: [number]) => {
 }
 
 export const addFoodLogs = async (token: string, log: FoodLogProps) => {
+    const pay_load = {
+        food_id: log.food_id,
+        quantity: log.quantity,
+        unit: log.unit,
+        date: log.date
+    }
     try {
-    const response = await axios.post(`${BACKEND_URL}/food`, log, {
+        await axios.post(`${BACKEND_URL}/log/food`, pay_load, 
+        {
         headers: {
             Authorization: `Bearer ${token}`,
+            'Content-Type': 'application/json',
         }
     })
     }catch (error) {
@@ -48,9 +56,10 @@ export const addFoodLogs = async (token: string, log: FoodLogProps) => {
     }
 }
 
-export const fetchFoodLogs = async (token: string) => {
+export const fetchFoodLogs = async (token: string, date: string) => {
     try {
-        const response = await axios.get(`${BACKEND_URL}/log/food`, {
+        console.log("Date: ", date);
+        const response = await axios.get(`${BACKEND_URL}/log/food/${date}`, {
             headers: {
                 Authorization: `Bearer ${token}`,
             }

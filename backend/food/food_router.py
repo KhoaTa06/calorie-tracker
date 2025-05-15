@@ -87,11 +87,14 @@ async def update_food_log(food: FoodLog,
     db.refresh(food_log)
     return food_log
 
-@router.post('log/food')
+@router.post('/log/food')
 async def log_food(food: FoodLog,
                    db: Session = Depends(get_session),
                    current_user: User = Depends(get_current_active_user)):
-    db_food_log = FoodLog.model_validate(food, update={"user_id": current_user.id})
+    food_data = food.model_dump()
+    print("Input food: ", food)
+    food_data["user_id"] = current_user.id
+    db_food_log = FoodLog.model_validate(food_data)
     db.add(db_food_log)
     db.commit()
     db.refresh(db_food_log)

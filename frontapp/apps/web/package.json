@@ -12,6 +12,7 @@
   "dependencies": {
     "@frontapp/api_call": "*",
     "@frontapp/types": "*",
+    "@types/bootstrap": "^5.2.10",
     "bootstrap": "^5.3.5",
     "react": "^19.1.0",
     "react-dom": "^19.0.0",

@@ -9,6 +9,7 @@ import { blackListNutrient } from "@frontapp/types/FoodType";
 import { FoodLogProps } from '@frontapp/types/FoodType';
 import FoodAdd from './FoodAdd';
 
+
 function FoodDetails() {
     const { fdcId } = useParams<{fdcId: string}> ();
     const token = localStorage.getItem('token');
@@ -34,12 +35,12 @@ function FoodDetails() {
         }
     }, [fdcId]);
 
-    const handleAddFood = async () => {
+    const handleAddFood = async (date: string, quantity: number, unit: string) => {
         const foodLog: FoodLogProps = {
             food_id: Number(fdcId),
-            quantity: 1,
-            unit: "g",
-            date: new Date().toISOString().split('T')[0],
+            quantity: quantity,
+            unit: unit,
+            date: date
         }
         try {
             await addFoodLog({foodLog});
@@ -84,11 +85,11 @@ function FoodDetails() {
                     
                                 <h4>Nutrient Information</h4>
                                 <ul className="list-group">
-                                    {foodDetails.foodNutrients.map((foodNutrient: any) => {
+                                    {foodDetails.foodNutrients.map((foodNutrient: any, index: number) => {
                                         if (blackListNutrient.includes(foodNutrient.nutrient.name)) {
                                             return null;
                                         }
-                                        return (<li className="list-group-item">
+                                        return (<li className="list-group-item" key={index}>
                                             {foodNutrient.nutrient.name} {foodNutrient.amount} {foodNutrient.nutrient.unitName}
                                         </li>)
                                     })}
