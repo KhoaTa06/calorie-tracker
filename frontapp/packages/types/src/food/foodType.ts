@@ -102,6 +102,14 @@ export interface FoodLogProps {
     date: string;
 }
 
+export interface UpdateFoodLogProps {
+    id: number;
+    food_id: number;
+    quantity: number;
+    unit: string;
+    date: string;
+}
+
 export interface FoodLogResponse {
     id: number;
     food_id: number;

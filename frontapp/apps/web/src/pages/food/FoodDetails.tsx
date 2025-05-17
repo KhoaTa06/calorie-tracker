@@ -4,10 +4,10 @@ import {useParams, useNavigate } from 'react-router-dom';
 import NavBar from "../../components/NavBar";
 import SearchBar from "../../components/SearchBar";
 import FoodSearch from '../../components/Food/FoodSearch';
+import FoodDetailComp from '../../components/Food/FoodDetailComp';
 import Breadcrumb from "../../components/Breadcrumb";
-import { blackListNutrient } from "@frontapp/types/FoodType";
 import { FoodLogProps } from '@frontapp/types/FoodType';
-import FoodAdd from './FoodAdd';
+import FoodAdd from '../../components/Food/FoodAdd';
 
 function FoodDetails() {
     const { fdcId } = useParams<{fdcId: string}> ();
@@ -58,43 +58,10 @@ function FoodDetails() {
                 <div className="col-2"><NavBar /></div>
                 <div className="col">
                     <h1>Food Details</h1>
-                    {foodDetails === null && <p>Loading...</p>}
                     {foodDetails && (
                     <div>
                         <Breadcrumb items={[{ title: "Food", link: "/food" }, { title: foodDetails.description, link: `/food/details/${fdcId}` }]} />
-                        <div className="card mt-3">
-                            <div className="card-body">
-                                <div className="row">
-                                    <div className="col"><h2>{foodDetails.description}</h2></div>
-                                    <div className="col d-flex justify-content-end">
-                                        <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#foodAddModal">Add Food</button>
-                                    </div>
-                                </div>
-                                <h4>General Information</h4>
-                                <li className="list-group-item">
-                                {(() => {
-                                                if (foodDetails.foodClass == "Branded") {
-                                                    return <p>Source: {foodDetails.brandOwner}</p>
-                                                }
-                                                else {
-                                                    return <p>Source: {foodDetails.dataType}</p>
-                                                }
-                                            }) ()}</li>
-                                <li className="list-group-item">Serving size: {foodDetails.servingSize} {foodDetails.servingSizeUnit}</li>
-                    
-                                <h4>Nutrient Information</h4>
-                                <ul className="list-group">
-                                    {foodDetails.foodNutrients.map((foodNutrient: any, index: number) => {
-                                        if (blackListNutrient.includes(foodNutrient.nutrient.name)) {
-                                            return null;
-                                        }
-                                        return (<li className="list-group-item" key={index}>
-                                            {foodNutrient.nutrient.name} {foodNutrient.amount} {foodNutrient.nutrient.unitName}
-                                        </li>)
-                                    })}
-                                </ul>
-                            </div>
-                        </div>
+                        <FoodDetailComp foodDetails={foodDetails} />
                     </div>
                     )}
                 </div>

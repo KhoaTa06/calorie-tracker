@@ -34,6 +34,13 @@ class FoodLog(SQLModel, table=True):
     unit: str
     date: datetime
 
+class UpdateFoodLog(SQLModel):
+    id: int
+    food_id: int
+    quantity: int
+    unit: str
+    date: datetime
+
 class Exercise(SQLModel, table=True):
     id: Optional[int] = Field(default=None, primary_key=True)
     user_id: int = Field(foreign_key="user.id")

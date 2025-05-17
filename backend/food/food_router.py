@@ -2,7 +2,7 @@ from fastapi import APIRouter, Depends, HTTPException, status
 
 from auth.auth_handler import get_current_active_user
 
-from sqlModels import Food, FoodLog, User, get_session
+from sqlModels import Food, FoodLog, UpdateFoodLog, User, get_session
 from sqlmodel import Session, select
 
 from datetime import datetime
@@ -55,7 +55,6 @@ async def get_food_logs(date: datetime,
                         db: Session = Depends(get_session),
                         current_user: User = Depends(get_current_active_user)):
     food_logs = db.exec(select(FoodLog).where(FoodLog.user_id == current_user.id, FoodLog.date == date)).all()
-    print("Food logs: ", food_logs)
     if not food_logs:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="No food logs found")
     return food_logs
@@ -72,16 +71,26 @@ async def get_food_log(food_id: int,
     return food_log
     
 
-@router.put('/log/food/{food_id}')
-async def update_food_log(food: FoodLog,
-                          food_id: int,
+@router.put('/log/food')
+async def update_food_log(food: UpdateFoodLog,
                           db: Session = Depends(get_session),
                           current_user: User = Depends(get_current_active_user)):
-    food_log = db.get(FoodLog, food_id)
+    print("Input food log: ", food)
+    food_log = db.exec(select(FoodLog).where(FoodLog.id == food.id, FoodLog.user_id == current_user.id)).first()
     if not food_log:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Food log not found")
-    for field, value in food.model_dump().items():
+    
+    print("Current food log: ", food_log)
+    update_log = food.model_dump(exclude_unset=True)
+
+    for field, value in update_log.items():
         setattr(food_log, field, value)
+    print("Updated food log: ", food_log)
+
+    # food_log["date"] = datetime.strptime(food_log["date"], "%Y-%m-%d")
+
+    # db_food_log = FoodLog.model_validate(food_log)
+    db.add(food_log)
     db.commit()
     db.refresh(food_log)
     return food_log
@@ -91,8 +100,8 @@ async def log_food(food: FoodLog,
                    db: Session = Depends(get_session),
                    current_user: User = Depends(get_current_active_user)):
     food_data = food.model_dump()
-    print("Input food: ", food)
     food_data["user_id"] = current_user.id
+    print("New food log: ", food_data)
     db_food_log = FoodLog.model_validate(food_data)
     db.add(db_food_log)
     db.commit()

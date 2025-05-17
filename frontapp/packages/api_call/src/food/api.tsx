@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { FoodLogProps, FoodLogResponse } from '@frontapp/types/FoodType';
+import { FoodLogProps, FoodLogResponse, UpdateFoodLogProps } from '@frontapp/types/FoodType';
 
 const USDA_API = "https://api.nal.usda.gov/fdc";
 const API_KEY = "AzIyMbMHTbAI8CPQzSWftS3qbbAmHx6kmHbhzVKz"
@@ -28,7 +28,6 @@ export const fetchFoodDetail = async (fdcId: number) => {
 export const fetchFoodLists = async (fdcIds: number[]) => {
     try {
         const fdcIdsString = fdcIds.join(',');
-        console.log("FDC IDs: ", fdcIdsString);
         const response = await axios.get(`${USDA_API}/v1/foods`, {
             params: {
                 api_key: API_KEY,
@@ -73,6 +72,30 @@ export const fetchFoodLogs = async (token: string, date: string): Promise<FoodLo
         return response.data;
     }catch (error) {
         console.log("Fetch food log error: ", error);
+        throw error;
+    }
+}
+
+export const updateFoodLogs = async (token: string, log: UpdateFoodLogProps) => {
+    const pay_load = {
+        id: log.id,
+        food_id: log.food_id,
+        quantity: log.quantity,
+        unit: log.unit,
+        date: log.date
+    }
+    try {
+        console.log("Update food log: ", pay_load);
+        console.log("Log ID: ", log.id);
+        await axios.put(`${BACKEND_URL}/log/food`, pay_load, 
+        {
+        headers: {
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'application/json',
+        }
+    })
+    }catch (error) {
+        console.log("Update food error: ", error);
         throw error;
     }
 }
