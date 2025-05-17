@@ -99,3 +99,16 @@ export const updateFoodLogs = async (token: string, log: UpdateFoodLogProps) => 
         throw error;
     }
 }
+
+export const deleteFoodLogs = async (token: string, id: number) => {
+    try {
+        await axios.delete(`${BACKEND_URL}/log/food/${id}`, {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            }
+        })
+    }catch (error) {
+        console.log("Delete food log error: ", error);
+        throw error;
+    }
+}

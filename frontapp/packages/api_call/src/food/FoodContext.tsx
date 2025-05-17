@@ -1,5 +1,5 @@
 import React, {createContext, useState } from 'react';
-import {fetchFoodQuery, fetchFoodDetail, fetchFoodLists, fetchFoodLogs, addFoodLogs, updateFoodLogs} from './api.tsx';
+import {fetchFoodQuery, fetchFoodDetail, fetchFoodLists, fetchFoodLogs, addFoodLogs, updateFoodLogs, deleteFoodLogs} from './api.tsx';
 import { AuthContext } from '@frontapp/api_call/AuthContext';
 import { useContext } from 'react';
 import { AuthContextType } from '@frontapp/types/AuthContextType';
@@ -76,8 +76,17 @@ const FoodProvider = ({children}: FoodProviderProps) => {
         }
     }
 
+
+    const deleteFoodLog = async (id: number) => {
+        try {
+            await deleteFoodLogs(token, id);
+        }catch (error) {
+            console.error('Error deleting food log:', error);
+            throw error;
+        }
+    }
     return (
-        <FoodContext.Provider value={{ fetchFoodSearch, fetchFoodDetails, fetchFoodList, fetchFoodLog, addFoodLog, updateFoodLog }}>
+        <FoodContext.Provider value={{ fetchFoodSearch, fetchFoodDetails, fetchFoodList, fetchFoodLog, addFoodLog, updateFoodLog, deleteFoodLog }}>
             {children}
         </FoodContext.Provider>
     );

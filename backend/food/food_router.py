@@ -80,16 +80,11 @@ async def update_food_log(food: UpdateFoodLog,
     if not food_log:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Food log not found")
     
-    print("Current food log: ", food_log)
     update_log = food.model_dump(exclude_unset=True)
 
     for field, value in update_log.items():
         setattr(food_log, field, value)
-    print("Updated food log: ", food_log)
 
-    # food_log["date"] = datetime.strptime(food_log["date"], "%Y-%m-%d")
-
-    # db_food_log = FoodLog.model_validate(food_log)
     db.add(food_log)
     db.commit()
     db.refresh(food_log)
@@ -108,11 +103,11 @@ async def log_food(food: FoodLog,
     db.refresh(db_food_log)
     return db_food_log
 
-@router.delete('/log/food/{food_id}')
-async def delete_food_log(food_id: int,
+@router.delete('/log/food/{id}')
+async def delete_food_log(id: int,
                           db: Session = Depends(get_session),
                           current_user: User = Depends(get_current_active_user)):
-    food_log = db.get(FoodLog, food_id)
+    food_log = db.exec(select(FoodLog).where(FoodLog.id == id, FoodLog.user_id == current_user.id)).first()
     if not food_log:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Food log not found")
     db.delete(food_log)

@@ -17,14 +17,17 @@ function FoodDetailComp({foodDetails, date, quantity, unit}: FoodDetailsCompProp
             <div className="row">
                 <div className="col"><h2>{foodDetails.description}</h2></div>
                 <div className="col d-flex justify-content-end" style={{height: "100%"}}>
-                    {quantity ? <button 
-                                type="button"
-                                className="btn btn-primary"
-                                data-bs-toggle="modal"
-                                data-bs-target="#foodAddModal"
-                                >
-                                    Edit Food
-                                </button> : 
+                    {quantity ? 
+                    <div>
+                        <button
+                        type="button" className="btn btn-primary mx-2" data-bs-toggle="modal" data-bs-target="#foodAddModal">
+                            Edit Food
+                        </button>
+                        <button
+                        type="button" className="btn btn-danger mx-2" data-bs-toggle="modal" data-bs-target="#deleteWarnModal">
+                            Delete Food
+                        </button>
+                    </div> : 
                                 <button 
                                 type="button"
                                 className="btn btn-primary"

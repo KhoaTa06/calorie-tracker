@@ -5,15 +5,9 @@ import SearchBar from '../../components/SearchBar';
 import FoodSearch from '../../components/Food/FoodSearch';
 import FoodAdd from '../../components/Food/FoodAdd';
 import FoodDetailComp from '../../components/Food/FoodDetailComp';
+import DeleteWarnModal from '../../components/DeleteWarnModal';
 import { FoodContext } from '@frontapp/api_call/FoodContext';
 import { UpdateFoodLogProps } from '@frontapp/types/FoodType';
-
-interface FoodEditProps {
-    foodDetails: any;
-    date: string;
-    quantity: number;
-    unit: string;
-}
 
 function FoodEdit() {
     const foodContext = useContext(FoodContext as React.Context<any>);
@@ -25,7 +19,7 @@ function FoodEdit() {
 
     const [loading, setLoading] = useState<boolean>(true);
 
-    const handleSubmit = (date: string, quantity: number, unit: string) => {
+    const handleEdit = (date: string, quantity: number, unit: string) => {
         const newFoodLog: UpdateFoodLogProps = {
             id: foodLog.id,
             food_id: Number(foodDetails.fdcId),
@@ -35,9 +29,18 @@ function FoodEdit() {
         }
         try {
             foodContext.updateFoodLog({foodLog: newFoodLog});
-            navigate("/food/diary");
+            navigate(`/food/diary/${foodLog.date}`);
         }catch (error) {
             console.error("Error adding food log:", error);
+        }
+    }
+
+    const handleDelete = () => {
+        try {
+        foodContext.deleteFoodLog(foodLog.id);
+        navigate(`/food/diary/${foodLog.date}`);
+        } catch (error) {
+            console.error("Error deleting food log:", error);
         }
     }
 
@@ -71,7 +74,8 @@ function FoodEdit() {
                 </div>
             </div>
         </div>
-        <FoodAdd onSubmit={handleSubmit} dateProp={foodLog.date} quantityProp={foodLog.quantity} unitProp={foodLog.unit}/>
+        <FoodAdd onSubmit={handleEdit} dateProp={foodLog.date} quantityProp={foodLog.quantity} unitProp={foodLog.unit}/>
+        <DeleteWarnModal subject="Food" onDelete={handleDelete}/>
         </>
     )
 }
