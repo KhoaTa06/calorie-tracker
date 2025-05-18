@@ -10,5 +10,13 @@
             "database": "calories-tracker",
             "username": "postgres"
         }
-    ]
+    ],
+    "search.exclude":{
+        "**/node_modules": true,
+        "**/build": true,
+        "**/.yarn": true
+    },
+    "files.watcherExclude": {
+        "**/node_modules/**": true
+    }
 }

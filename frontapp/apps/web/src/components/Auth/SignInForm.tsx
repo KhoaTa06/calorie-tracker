@@ -1,4 +1,5 @@
 import React from "react";
+import { NavLink } from "react-router-dom";
 
 interface Props {
   onSubmit: (e: React.FormEvent) => void;
@@ -6,9 +7,6 @@ interface Props {
 }
 
 function SignInForm({ onSubmit, onChange }: Props) {
-  // const [email, setEmail] = useState("");
-  // const [password, setPassword] = useState("");
-
   return (
     <>
       <form onSubmit={onSubmit}>
@@ -17,11 +15,10 @@ function SignInForm({ onSubmit, onChange }: Props) {
             Email address
           </label>
           <input
-            type="email"
+            type="text"
             name="email"
             className="form-control"
             id="exampleInputEmail1"
-            aria-describedby="emailHelp"
             onChange={onChange}
           />
         </div>
@@ -48,7 +45,10 @@ function SignInForm({ onSubmit, onChange }: Props) {
             Remember me
           </label>
         </div>
-        <button type="submit" className="btn btn-primary">
+        <div>
+          <NavLink to="/signup">Signup here</NavLink>
+        </div>
+        <button type="submit" className="btn btn-primary d-flex mx-auto justify-content-center" style={{ width: "100%" }}>
           LOG IN
         </button>
       </form>

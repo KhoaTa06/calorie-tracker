@@ -9,12 +9,21 @@
     },
     "exports": {
         "./AuthContextType": {
-            "types": "./src/auth/AuthContextType.tsx",
-            "default": "./dist/auth/AuthContextType.tsx"
+            "types": "./src/auth/AuthContextType.ts",
+            "default": "./dist/auth/AuthContextType.ts"
+        },
+        "./ExerciseType": {
+            "types": "./src/exercise/ExerciseType.ts",
+            "default": "./dist/exercise/ExerciseType.ts"
+        },
+        "./FoodType": {
+            "types": "./src/food/FoodType.ts",
+            "default": "./dist/food/FoodType.ts"
         }
     },
     "devDependencies": {
         "react": "^19.1.0",
-        "typescript": "^5.8.2"
+        "typescript": "^5.8.2",
+        "@repo/typescript-config": "*"
     }
 }

@@ -40,30 +40,26 @@ class Fatsecret:
         except ET.ParseError as e:
             print("XML Parse Error: ", e)
 
-        food = Food()
-        food.parse_xml(response.content)
-        return food
+        # food = Food()
+        # food.parse_xml(response.content)
+        # return food
 
-    def getFoodById(self, barcode):
-        pass
+    def getFoodById(self, food_id):
+        params = {"food_id": food_id}
+        headers = {"Authorization" : f"Bearer {self.access_token.headers}"}
+        try: 
+            response = requests.get(self.food_id_url, headers=headers, params=params)
+            response.raise_for_status_code()
+
+            root = ET.fromstring(response.content)
+
+        except requests.exceptions.RequestException as e:
+            print("API Request Error: " + e)
+
+        except ET.ParseError as e:
+            print("XML Parse Error: ", e)
 
 
-class Food:
-    def __init__(self):
-        self.food_id
-        self.food_name
-        self.brand_name
-        self.food_type
-        self.food_url
-        self.food_description
-
-    def parse_xml(self, xml):
-        pass
-
-
-class FoodLog:
-    def __init__(self):
-        pass
 
 
 

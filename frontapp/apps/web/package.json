@@ -12,6 +12,8 @@
   "dependencies": {
     "@frontapp/api_call": "*",
     "@frontapp/types": "*",
+    "@types/bootstrap": "^5.2.10",
+    "bootstrap": "^5.3.5",
     "react": "^19.1.0",
     "react-dom": "^19.0.0",
     "react-router-dom": "^7.4.1"
@@ -29,7 +31,7 @@
     "typescript-eslint": "^8.24.1",
     "vite": "^6.2.0"
   },
-  "resolutions":{
+  "resolutions": {
     "react": "^19.1.0",
     "@types/react": "^19.0.10"
   }
