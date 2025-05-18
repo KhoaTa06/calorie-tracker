@@ -8,7 +8,7 @@ const NavBar = () => {
         { title: "Food Log", link: "/food/diary" },]
 
     const exerciseNavItems = [
-        { title: "Exercise Summary", link: "/exercise/summary" },
+        { title: "Exercise Summary", link: "/exercise" },
         { title: "Exercise Log", link: "/exercise/log" },]
 
     return(
